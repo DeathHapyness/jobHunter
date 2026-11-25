@@ -78,3 +78,23 @@ companies:
 
   # --- Pandapé ---
   - {name: InfoJobs, source: pandape, id: infojobs}
+
+  # --- Workday (params: host = wdN, site = nome do site de vagas) ---
+  - {name: NVIDIA, source: workday, id: nvidia, params: {host: wd5, site: NVIDIAExternalCareerSite, max_pages: "110"}}
+  - {name: Salesforce, source: workday, id: salesforce, params: {host: wd12, site: External_Career_Site, max_pages: "90"}}
+  - {name: Red Hat, source: workday, id: redhat, params: {host: wd5, site: jobs}}
+  - {name: Intel, source: workday, id: intel, params: {host: wd1, site: External}}
+  - {name: CrowdStrike, source: workday, id: crowdstrike, params: {host: wd5, site: crowdstrikecareers}}
+  - {name: PayPal, source: workday, id: paypal, params: {host: wd1, site: jobs}}
+
+  # --- iCIMS ---
+  - {name: Peraton, source: icims, id: peraton, params: {max_pages: "80"}}
+
+  # --- Jobvite ---
+  - {name: Nutanix, source: jobvite, id: nutanix}
+
+  # --- Oracle Recruiting Cloud ---
+  - {name: Oracle, source: oracle, id: oracle, params: {host: eeho.fa.us2.oraclecloud.com, site: CX_45001, max_pages: "130"}}
+
+  # --- SAP SuccessFactors (sitemap de vagas) ---
+  - {name: SAP, source: successfactors, id: sap, params: {base_url: "https://jobs.sap.com", sitemap: /en/jobs/sitemap.xml}}

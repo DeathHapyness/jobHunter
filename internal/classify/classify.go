@@ -15,11 +15,11 @@ type rule[T any] struct {
 
 // Ordem importa: a primeira regra que casar vence.
 var levelRules = []rule[model.Level]{
-	{model.LevelIntern, []string{"estagio", "estagiario", "estagiaria", "intern", "internship", "trainee", "aprendiz", "apprentice", "working student"}},
+	{model.LevelIntern, []string{"estagio", "estagiario", "estagiaria", "estagiarios", "estagiario a", "intern", "interns", "internship", "trainee", "aprendiz", "jovem aprendiz", "apprentice", "apprenticeship", "working student", "co op", "coop", "estudante"}},
 	{model.LevelLead, []string{"lead", "lider", "head of", "principal", "staff", "manager", "gerente", "coordenador", "coordenadora", "director", "diretor", "architect", "arquiteto"}},
 	{model.LevelSenior, []string{"senior", "sr", "iii", "level 3", "l3"}},
 	{model.LevelMid, []string{"pleno", "mid", "mid level", "ii", "level 2"}},
-	{model.LevelJunior, []string{"junior", "jr", "entry level", "early career", "new grad", "graduate", "associate", "i"}},
+	{model.LevelJunior, []string{"junior", "jr", "jr a", "entry level", "entry", "early career", "new grad", "graduate", "recem formado", "recem formada", "associate", "i", "nivel i", "nivel 1", "level 1", "l1", "assistente", "auxiliar"}},
 }
 
 var areaRules = []rule[model.Area]{
@@ -29,7 +29,9 @@ var areaRules = []rule[model.Area]{
 	{model.AreaCloud, []string{"cloud", "aws", "azure", "gcp", "nuvem"}},
 	{model.AreaInfra, []string{"infrastructure", "infraestrutura", "infra", "sysadmin", "system administrator", "systems administrator", "administrador de sistemas", "systems engineer", "network", "networking", "redes", "linux", "unix", "windows server", "datacenter", "data center", "noc", "suporte de infraestrutura", "it operations", "operations engineer", "help desk", "helpdesk", "service desk", "suporte tecnico", "it support", "suporte de ti", "suporte ti", "analista de ti", "tecnico de ti", "tecnico em ti", "analista de suporte", "dba", "database administrator", "storage", "virtualizacao", "virtualization", "kubernetes", "it specialist", "it engineer", "it analyst", "it technician", "desktop support", "field engineer", "production engineer", "observability", "telecom"}},
 	{model.AreaData, []string{"data engineer", "engenheiro de dados", "engenheira de dados", "data scientist", "cientista de dados", "data analyst", "analista de dados", "machine learning", "ml engineer", "ml", "ai engineer", "applied ai", "llm", "research engineer", "analytics engineer", "data platform", "bi", "business intelligence", "big data"}},
-	{model.AreaDev, []string{"software engineer", "software developer", "software engineering", "engineer software", "desenvolvedor", "desenvolvedora", "developer", "programador", "programadora", "backend", "back end", "frontend", "front end", "full stack", "fullstack", "mobile", "ios", "android", "engenheiro de software", "engenheira de software", "qa", "quality assurance", "test engineer", "sdet", "tester", "analista de testes", "web developer", "golang", "java", "python", "react", "node", "net", "php", "ruby", "rust", "embedded", "firmware", "systems programmer", "analista de sistemas", "analista desenvolvedor", "engenheiro de computacao", "computer engineer", "technical support engineer", "support engineer"}},
+	{model.AreaDev, []string{"software engineer", "software developer", "software engineering", "engineer software", "desenvolvedor", "desenvolvedora", "developer", "programador", "programadora", "backend", "back end", "frontend", "front end", "full stack", "fullstack", "mobile", "ios", "android", "engenheiro de software", "engenheira de software", "qa", "quality assurance", "test engineer", "sdet", "tester", "analista de testes", "web developer", "golang", "java", "python", "react", "node", "net", "php", "ruby", "rust", "embedded", "firmware", "systems programmer", "analista de sistemas", "analista desenvolvedor", "engenheiro de computacao", "computer engineer", "technical support engineer", "support engineer", "desenvolvimento de software", "desenvolvimento", "programacao", "engenharia de software", "software"}},
+	// Termos genéricos de TI (por último, para não roubar áreas mais específicas).
+	{model.AreaInfra, []string{"ti", "it", "tecnologia", "tecnologia da informacao", "information technology", "sistemas", "sistemas de informacao", "computacao", "ciencia da computacao", "informatica", "suporte tecnico", "tech", "technology"}},
 }
 
 var countryAliases = map[string]string{

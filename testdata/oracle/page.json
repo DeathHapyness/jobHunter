@@ -1,0 +1,44 @@
+{
+ "items": [
+  {
+   "TotalJobsCount": 3,
+   "Offset": 0,
+   "Limit": 3,
+   "SiteNumber": "CX_45001",
+   "requisitionList": [
+    {
+     "Id": "348884",
+     "Title": "Senior Core Infrastructure Engineer",
+     "PostedDate": "2026-11-25",
+     "PrimaryLocation": "Seattle, WA, United States",
+     "PrimaryLocationCountry": "US",
+     "ShortDescriptionStr": "Designs, implements, and optimizes components in distributed systems with an emphasis on scalability, resiliency, and operability.",
+     "WorkplaceType": "",
+     "WorkplaceTypeCode": null
+    },
+    {
+     "Id": "351473",
+     "Title": "Oracle Applications Industry Account Executive - Saudi Arabia",
+     "PostedDate": "2026-11-25",
+     "PrimaryLocation": "RIYADH, Saudi Arabia",
+     "PrimaryLocationCountry": "SA",
+     "ShortDescriptionStr": "Industry Focus: Construction & Engineering\nReporting to: Regional Sales Director\n\nRole Overview\nWe are seeking an Industry Account Executive to grow Oracle Applications sales within a defined industry. You will develop strategic customer relationships, identify industry-specific business challenges, and position Oracle Cloud Applications to deliver measurable business outcomes.\n\nThe role requires industry knowledge, executive engagement, and ownership of the sales cycle across new customer acquisition and existing account growth.",
+     "WorkplaceType": "",
+     "WorkplaceTypeCode": null
+    },
+    {
+     "Id": "351474",
+     "Title": "Senior Consultant - Multiple Modules",
+     "PostedDate": "2026-11-25",
+     "PrimaryLocation": "BENGALURU, KARNATAKA, India",
+     "PrimaryLocationCountry": "IN",
+     "ShortDescriptionStr": "Role Overview\nAs a Senior Consultant, you will deliver assigned implementation activities for Oracle Health products and solutions, from requirements gathering and configuration through testing, issue resolution, and transition. You will work directly with customers to understand solution workflows, clarify requirements, and recommend practical configuration and process improvements.",
+     "WorkplaceType": "",
+     "WorkplaceTypeCode": null
+    }
+   ]
+  }
+ ],
+ "count": 1,
+ "hasMore": false
+}

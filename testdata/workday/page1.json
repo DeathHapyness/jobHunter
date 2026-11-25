@@ -1,0 +1,24 @@
+{
+ "total": 3,
+ "jobPostings": [
+  {
+   "title": "Senior Applied Research Scientist – AI Native Numerical Methods",
+   "externalPath": "/job/US-CA-Remote/Senior-Applied-Research-Scientist---AI-Native-Numerical-Methods_JR2030637",
+   "locationsText": "5 Locations",
+   "postedOn": "Posted Today",
+   "bulletFields": [
+    "JR2030637"
+   ]
+  },
+  {
+   "title": "Platform Software Product Manager",
+   "externalPath": "/job/US-CA-Santa-Clara/Platform-Software-Product-Manager_JR2029995",
+   "locationsText": "US, CA, Santa Clara",
+   "postedOn": "Posted 3 Days Ago",
+   "bulletFields": [
+    "JR2029995"
+   ]
+  }
+ ],
+ "facets": []
+}

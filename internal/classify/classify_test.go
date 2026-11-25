@@ -53,6 +53,13 @@ func TestIsTech(t *testing.T) {
 		"Legal Counsel, Infrastructure":              false,
 		"Recruiter, Engineering":                     false,
 		"Office Manager":                             false,
+		"Estágio em TI":                              true,
+		"Estagiário(a) de Tecnologia":                true,
+		"Jovem Aprendiz - Sistemas":                  true,
+		"IT Intern":                                  true,
+		"Estágio em Desenvolvimento":                 true,
+		"Estágio em Marketing":                       false,
+		"Assistente Administrativo":                  false,
 	}
 	for title, want := range cases {
 		j := model.Job{Title: title}
@@ -89,5 +96,21 @@ func TestCanonicalCity(t *testing.T) {
 	Apply(&j)
 	if j.City != "São Paulo" || j.State != "SP" || j.Country != "Brasil" {
 		t.Fatalf("got %q %q %q", j.City, j.State, j.Country)
+	}
+}
+
+func TestLevelBR(t *testing.T) {
+	cases := map[string]model.Level{
+		"Estágio em TI": model.LevelIntern, "Estagiário(a) de Tecnologia": model.LevelIntern,
+		"Jovem Aprendiz - Sistemas": model.LevelIntern, "Analista de Suporte I": model.LevelJunior,
+		"Desenvolvedor Jr.": model.LevelJunior, "Assistente de TI": model.LevelJunior,
+		"Software Engineer, New Grad": model.LevelJunior, "Analista de Sistemas Pleno": model.LevelMid,
+	}
+	for title, want := range cases {
+		j := model.Job{Title: title}
+		Apply(&j)
+		if j.Level != want {
+			t.Errorf("%q: level=%s want %s", title, j.Level, want)
+		}
 	}
 }
