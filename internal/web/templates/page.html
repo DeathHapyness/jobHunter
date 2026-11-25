@@ -1,0 +1,140 @@
+{{define "page"}}<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="htmx-config" content='{"includeIndicatorStyles": false}'>
+<title>vagas</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/htmx.min.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <h1><a href="/">VAGAS</a></h1>
+  <span class="rule" aria-hidden="true"></span>
+  <button class="link" hx-post="/collect" hx-target="#collect-msg" hx-swap="innerHTML" {{if .Collecting}}disabled{{end}}>
+    [{{if .Collecting}}coletando…{{else}}coletar agora{{end}}]
+  </button>
+</header>
+<p id="collect-msg" class="msg" role="status"></p>
+
+<form id="filters" class="filters" action="/" method="get"
+      hx-get="/" hx-target="#results" hx-swap="outerHTML" hx-push-url="true"
+      hx-trigger="change, input from:#q delay:350ms, submit">
+  <label class="prompt"><span aria-hidden="true">&gt;</span>
+    <input id="q" type="search" name="q" value="{{.Filter.Q}}" placeholder="buscar…" autocomplete="off" aria-label="Buscar no título e na descrição">
+  </label>
+
+  <div class="line">
+    {{template "select" dict "Name" "nivel" "Label" "nível" "Opts" .Levels "F" .Filter}}
+    {{template "select" dict "Name" "area" "Label" "área" "Opts" .Areas "F" .Filter}}
+    {{template "select" dict "Name" "remoto" "Label" "modalidade" "Opts" .Remotes "F" .Filter}}
+    <select name="publicada" aria-label="Data de publicação">
+      {{range .PostedOpts}}<option value="{{.Value}}" {{if $.Filter.Has "publicada" .Value}}selected{{end}}>{{if .Value}}{{.Label}}{{else}}qualquer data{{end}}</option>{{end}}
+    </select>
+    <label class="check"><input type="checkbox" name="novas" value="1" {{if .Filter.OnlyNew}}checked{{end}}> só novas</label>
+  </div>
+
+  <details class="more" {{if or .Filter.Companies .Filter.Sources .Filter.Countries .Filter.City .Filter.Statuses .Filter.ShowDisc (eq .Filter.Sort "empresa")}}open{{end}}>
+    <summary>[+ filtros]</summary>
+    <div class="more-grid">
+      {{template "checks" dict "Name" "empresa" "Label" "empresa" "Values" .Facets.Companies "F" .Filter}}
+      {{template "checks" dict "Name" "fonte" "Label" "fonte" "Values" .Facets.Sources "F" .Filter}}
+      {{template "checks" dict "Name" "pais" "Label" "país" "Values" .Facets.Countries "F" .Filter}}
+      <fieldset>
+        <legend>status</legend>
+        {{range .StatusOpts}}<label class="check"><input type="checkbox" name="status" value="{{.Value}}" {{if $.Filter.Has "status" .Value}}checked{{end}}> {{lower .Label}}</label>{{end}}
+        <label class="check"><input type="checkbox" name="descartadas" value="1" {{if .Filter.ShowDisc}}checked{{end}}> mostrar descartadas</label>
+      </fieldset>
+      <fieldset>
+        <legend>outros</legend>
+        <label class="field">cidade <input type="text" name="cidade" value="{{.Filter.City}}" size="14"></label>
+        <label class="field">ordem
+          <select name="ordem">{{range .SortOpts}}<option value="{{.Value}}" {{if $.Filter.Has "ordem" .Value}}selected{{end}}>{{lower .Label}}</option>{{end}}</select>
+        </label>
+      </fieldset>
+    </div>
+  </details>
+  <noscript><button type="submit">filtrar</button></noscript>
+</form>
+
+{{template "results" .}}
+
+<footer class="foot">
+  <details>
+    <summary>fontes{{if not .LastVisit.IsZero}} · última visita {{ago .LastVisit}}{{end}}</summary>
+    {{if .Statuses}}
+    <pre>{{range .Statuses}}{{printf "%-16s" .Source}} {{printf "%-12s" (ago .LastFinished)}} {{printf "%3d" .Companies}} empresas  {{printf "%5d" .Jobs}} vagas{{if .Failed}}  {{.Failed}} falha(s){{end}}
+{{if .LastError}}  └ {{excerpt .LastError 120}}
+{{end}}{{end}}</pre>
+    {{else}}<p>nenhuma coleta registrada ainda.</p>{{end}}
+  </details>
+</footer>
+</body>
+</html>{{end}}
+
+{{define "select"}}{{$f := .F}}{{$name := .Name}}
+<select name="{{.Name}}" aria-label="{{.Label}}">
+  <option value="">{{.Label}}: todos</option>
+  {{range .Opts}}<option value="{{.Value}}" {{if $f.Has $name .Value}}selected{{end}}>{{lower .Label}}</option>{{end}}
+</select>
+{{end}}
+
+{{define "checks"}}{{$f := .F}}{{$name := .Name}}
+<fieldset>
+  <legend>{{.Label}}{{with .F.Count .Name}} ({{.}}){{end}}</legend>
+  <div class="scroll">
+  {{range .Values}}<label class="check"><input type="checkbox" name="{{$name}}" value="{{.}}" {{if $f.Has $name .}}checked{{end}}> {{.}}</label>{{else}}<span class="dim">—</span>{{end}}
+  </div>
+</fieldset>
+{{end}}
+
+{{define "results"}}
+<main id="results">
+  <p class="summary">
+    <b>{{.Total}}</b> vaga{{if ne .Total 1}}s{{end}}
+    {{if .Filter.Active}}· <a href="/">limpar</a> · <a href="/?{{.QueryString}}" title="Copie para salvar este filtro">link do filtro</a>{{end}}
+  </p>
+  <ol class="jobs">
+  {{range .Jobs}}{{template "job" job . $.LastVisit}}{{else}}
+  <li class="empty">nada por aqui.</li>
+  {{end}}
+  </ol>
+  {{if gt .Pages 1}}
+  <nav class="pager">
+    {{if .PrevURL}}<a href="{{.PrevURL}}" hx-get="{{.PrevURL}}" hx-target="#results" hx-swap="outerHTML" hx-push-url="true">&lt;&lt; anterior</a>{{else}}<span class="dim">&lt;&lt; anterior</span>{{end}}
+    <span>{{.Page}}/{{.Pages}}</span>
+    {{if .NextURL}}<a href="{{.NextURL}}" hx-get="{{.NextURL}}" hx-target="#results" hx-swap="outerHTML" hx-push-url="true">próxima &gt;&gt;</a>{{else}}<span class="dim">próxima &gt;&gt;</span>{{end}}
+  </nav>
+  {{end}}
+</main>
+{{end}}
+
+{{define "job"}}
+<li class="job st-{{.Status}}" id="job-{{.ID}}">
+  <div class="l1">
+    <span class="when" title="{{if .PostedAt.IsZero}}vista em {{date .FirstSeen}}{{else}}publicada em {{date .PostedAt}}{{end}}">{{if .PostedAt.IsZero}}{{short .FirstSeen}}{{else}}{{short .PostedAt}}{{end}}</span>
+    <a class="title" href="{{.URL}}" target="_blank" rel="noopener noreferrer">{{.Title}}</a>
+    {{if and .IsNew (eq .Status "nova")}}<span class="tag new">nova</span>{{end}}
+    {{if eq .Remote "sim"}}<span class="tag">remoto</span>{{else if eq .Remote "hibrido"}}<span class="tag">híbrido</span>{{end}}
+    {{if ne .Status "nova"}}<span class="tag st">{{label .Status}}</span>{{end}}
+  </div>
+  <div class="l2">
+    <span class="co">{{.Company}}</span>{{with .Location}} · {{excerpt . 60}}{{end}}{{if ne .Level "desconhecido"}} · {{lower (label .Level)}}{{end}}{{if ne .Area "outros"}} · {{lower (label .Area)}}{{end}}
+    <span class="acts">
+      {{if ne .Status "salva"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"salva"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">salvar</button>{{end}}
+      {{if ne .Status "aplicada"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"aplicada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">apliquei</button>{{end}}
+      {{if ne .Status "descartada"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"descartada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">descartar</button>
+      {{else}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"vista"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">restaurar</button>{{end}}
+      <details class="note"><summary>nota</summary>
+        <form hx-post="/jobs/{{.ID}}/notes" hx-target="#job-{{.ID}}" hx-swap="outerHTML">
+          <textarea name="notes" rows="2" maxlength="5000" aria-label="Anotação">{{.Notes}}</textarea>
+          <button class="link" type="submit">[guardar]</button>
+        </form>
+      </details>
+    </span>
+  </div>
+  {{with .Notes}}<div class="l3">» {{.}}</div>{{end}}
+</li>
+{{end}}

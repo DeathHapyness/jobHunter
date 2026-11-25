@@ -1,0 +1,18 @@
+# Configuração geral. Valores ausentes usam os padrões do código.
+server:
+  # Em produção, prefira escutar só na rede local (ex.: "192.168.0.10:8080")
+  # ou atrás de Tailscale/Cloudflare Tunnel. Veja o README.
+  addr: ":8080"
+
+database:
+  path: "data/vagas.db"
+
+collector:
+  interval: 6h           # intervalo entre coletas automáticas
+  request_timeout: 30s   # por requisição HTTP
+  company_timeout: 5m    # por empresa (todas as páginas)
+  max_concurrency: 8     # empresas coletadas em paralelo
+  per_host_concurrency: 2
+  retries: 3
+  user_agent: "vagas-hub/0.1 (agregador pessoal de vagas)"
+  run_on_start: true

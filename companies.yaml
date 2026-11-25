@@ -1,0 +1,26 @@
+# Empresas coletadas. Para adicionar uma empresa, basta uma entrada nova:
+#
+#   - name: Nome exibido
+#     source: greenhouse        # sistema (veja docs/FONTES.md)
+#     id: token-da-empresa      # identificador no sistema
+#     params: {}                # parâmetros específicos do adaptador (opcional)
+#     disabled: false           # true mantém a entrada sem coletar
+#
+# Validadas em 2026-11-25.
+companies:
+  # --- Greenhouse ---
+  - {name: Anthropic, source: greenhouse, id: anthropic}
+  - {name: Cloudflare, source: greenhouse, id: cloudflare}
+  - {name: GitLab, source: greenhouse, id: gitlab}
+  - {name: Datadog, source: greenhouse, id: datadog}
+  - {name: MongoDB, source: greenhouse, id: mongodb}
+  - {name: Elastic, source: greenhouse, id: elastic}
+  - {name: Grafana Labs, source: greenhouse, id: grafanalabs}
+  - {name: Twilio, source: greenhouse, id: twilio}
+  - {name: Stone, source: greenhouse, id: stone}
+  - {name: VTEX, source: greenhouse, id: vtex}
+  - {name: QuintoAndar, source: greenhouse, id: quintoandar}
+  - {name: Wildlife Studios, source: greenhouse, id: wildlifestudios}
+  - {name: Cockroach Labs, source: greenhouse, id: cockroachlabs}
+  - {name: Fastly, source: greenhouse, id: fastly}
+  - {name: PagerDuty, source: greenhouse, id: pagerduty}

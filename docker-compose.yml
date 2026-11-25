@@ -1,0 +1,32 @@
+services:
+  vagas:
+    build: .
+    image: vagas:latest
+    container_name: vagas
+    restart: unless-stopped
+    # Escuta só no loopback do host. Para acessar da rede local, troque por
+    # "IP_DO_HOMELAB:8080:8080" (ex.: "192.168.0.10:8080:8080") ou use
+    # Tailscale / Cloudflare Tunnel. Veja o README.
+    ports:
+      - "127.0.0.1:${VAGAS_PORT:-8080}:8080"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      GOMEMLIMIT: 300MiB
+    volumes:
+      - vagas-data:/data
+      # Edite companies.yaml/config.yaml no host sem rebuild:
+      - ./companies.yaml:/app/companies.yaml:ro
+      - ./config.yaml:/app/config.yaml:ro
+    mem_limit: 400m
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  vagas-data:
