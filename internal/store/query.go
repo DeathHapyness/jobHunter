@@ -26,7 +26,7 @@ type Filter struct {
 	Areas     []string
 	Remotes   []string
 	Countries []string
-	City      string
+	Cities    []string
 	// PostedSince filtra por data de publicação (ou primeira vez vista,
 	// quando a fonte não informa).
 	PostedSince time.Time
@@ -42,7 +42,7 @@ type Filter struct {
 }
 
 const jobColumns = `j.id, j.source, j.source_job_id, j.company, j.title, j.description, j.location,
-	j.country, j.remote, j.level, j.area, j.url, j.posted_at, j.first_seen, j.last_seen, j.closed_at,
+	j.city, j.country, j.remote, j.level, j.area, j.url, j.posted_at, j.first_seen, j.last_seen, j.closed_at,
 	j.fingerprint, j.aggregator, COALESCE(st.status, 'nova'), COALESCE(st.notes, '')`
 
 // ListJobs devolve uma página de vagas e o total que atende ao filtro.
@@ -118,10 +118,7 @@ func buildWhere(f Filter) ([]string, []any) {
 	in("j.area", f.Areas)
 	in("j.remote", f.Remotes)
 	in("j.country", f.Countries)
-	if c := strings.TrimSpace(f.City); c != "" {
-		where = append(where, "j.location LIKE ? ESCAPE '\\'")
-		args = append(args, "%"+escapeLike(c)+"%")
-	}
+	in("j.city", f.Cities)
 	if !f.PostedSince.IsZero() {
 		where = append(where, "COALESCE(j.posted_at, j.first_seen) >= ?")
 		args = append(args, f.PostedSince.Unix())
@@ -156,6 +153,7 @@ type Facets struct {
 	Companies []string
 	Sources   []string
 	Countries []string
+	Cities    []string
 }
 
 // Facets lista valores distintos entre as vagas abertas.
@@ -168,7 +166,10 @@ func (s *Store) Facets(ctx context.Context) (Facets, error) {
 	if f.Sources, err = s.distinct(ctx, "source"); err != nil {
 		return f, err
 	}
-	f.Countries, err = s.distinct(ctx, "country")
+	if f.Countries, err = s.distinct(ctx, "country"); err != nil {
+		return f, err
+	}
+	f.Cities, err = s.distinct(ctx, "city")
 	return f, err
 }
 
@@ -198,7 +199,7 @@ func scanJob(sc scanner) (model.JobView, error) {
 	var first, last int64
 	var remote, level, area, status string
 	err := sc.Scan(&v.ID, &v.Source, &v.SourceJobID, &v.Company, &v.Title, &v.Description, &v.Location,
-		&v.Country, &remote, &level, &area, &v.URL, &posted, &first, &last, &closed,
+		&v.City, &v.Country, &remote, &level, &area, &v.URL, &posted, &first, &last, &closed,
 		&v.Fingerprint, &v.Aggregator, &status, &v.Notes)
 	if err != nil {
 		return v, err

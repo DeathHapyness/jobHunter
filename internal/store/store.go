@@ -84,13 +84,14 @@ func (s *Store) migrate(ctx context.Context) error {
 }
 
 const upsertSQL = `
-INSERT INTO jobs (source, source_job_id, company, title, description, location, country,
+INSERT INTO jobs (source, source_job_id, company, title, description, location, city, country,
 	remote, level, area, url, posted_at, first_seen, last_seen, closed_at, fingerprint, aggregator)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?)
 ON CONFLICT (source, company, source_job_id) DO UPDATE SET
 	title       = excluded.title,
 	description = CASE WHEN excluded.description <> '' THEN excluded.description ELSE jobs.description END,
 	location    = excluded.location,
+	city        = excluded.city,
 	country     = excluded.country,
 	remote      = excluded.remote,
 	level       = excluded.level,
@@ -124,7 +125,7 @@ func (s *Store) UpsertJobs(ctx context.Context, jobs []model.Job, seenAt time.Ti
 			j.Fingerprint = model.Fingerprint(j.Company, j.Title, j.Location)
 		}
 		_, err := stmt.ExecContext(ctx,
-			j.Source, j.SourceJobID, j.Company, j.Title, j.Description, j.Location, j.Country,
+			j.Source, j.SourceJobID, j.Company, j.Title, j.Description, j.Location, j.City, j.Country,
 			string(orRemote(j.Remote)), string(orLevel(j.Level)), string(orArea(j.Area)),
 			j.URL, nullTime(j.PostedAt), seen, seen, j.Fingerprint, j.Aggregator)
 		if err != nil {
@@ -157,6 +158,7 @@ type Run struct {
 	OK         bool
 	Error      string
 	Jobs       int
+	Skipped    int // descartadas pelo filtro (ex.: fora de TI); não gravadas
 	Closed     int64
 }
 

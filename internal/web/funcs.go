@@ -52,6 +52,14 @@ var funcs = template.FuncMap{
 	},
 	"ago":   ago,
 	"lower": strings.ToLower,
+	// opts transforma valores de faceta em opções (valor = rótulo).
+	"opts": func(vals []string) []option {
+		out := make([]option, len(vals))
+		for i, v := range vals {
+			out[i] = option{v, v}
+		}
+		return out
+	},
 	"short": func(t time.Time) string {
 		if t.IsZero() {
 			return "--/--"

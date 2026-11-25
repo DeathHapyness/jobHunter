@@ -4,8 +4,8 @@ package web
 import (
 	"context"
 	"crypto/sha256"
-	"encoding/hex"
 	"embed"
+	"encoding/hex"
 	"errors"
 	"html/template"
 	"io/fs"

@@ -36,6 +36,8 @@ type Collector struct {
 	Retries            int           `yaml:"retries"`
 	UserAgent          string        `yaml:"user_agent"`
 	RunOnStart         bool          `yaml:"run_on_start"`
+	// OnlyTech guarda só vagas de TI (infra, devops, sre, cloud, segurança, dev, dados).
+	OnlyTech bool `yaml:"only_tech"`
 }
 
 // Company é uma empresa a ser coletada em uma fonte.
@@ -69,6 +71,7 @@ func Defaults() Config {
 			Retries:            3,
 			UserAgent:          "vagas-hub/0.1 (agregador pessoal de vagas)",
 			RunOnStart:         true,
+			OnlyTech:           true,
 		},
 	}
 }

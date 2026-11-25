@@ -147,3 +147,25 @@ func TestPanicInAdapterIsContained(t *testing.T) {
 		t.Fatalf("sum=%+v err=%v", sum, err)
 	}
 }
+
+func TestOnlyTechSkipsNonTech(t *testing.T) {
+	ctx := context.Background()
+	fa := &fakeAdapter{jobs: map[string][]string{"Acme": ids(2)}}
+	c, s := setup(t, fa)
+	c.OnlyTech = true
+	c.Lookup = func(string) (adapters.Adapter, bool) { return mixedAdapter{}, true }
+	c.RunAll(ctx, []config.Company{{Name: "Acme", Source: "mixed"}})
+	jobs, total, _ := s.ListJobs(ctx, store.Filter{})
+	if total != 1 || jobs[0].Title != "DevOps Engineer" {
+		t.Fatalf("want only the tech job, got %d %+v", total, jobs)
+	}
+}
+
+type mixedAdapter struct{}
+
+func (mixedAdapter) Source() string   { return "mixed" }
+func (mixedAdapter) Aggregator() bool { return false }
+func (mixedAdapter) Fetch(_ context.Context, _ *httpx.Client, _ config.Company, emit adapters.Emit) error {
+	emit(model.Job{SourceJobID: "1", Title: "DevOps Engineer", URL: "https://x/1"})
+	return emit(model.Job{SourceJobID: "2", Title: "Senior Accountant", URL: "https://x/2"})
+}

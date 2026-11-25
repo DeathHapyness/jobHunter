@@ -78,6 +78,7 @@ func run(args []string) error {
 	col := &collector.Collector{
 		Store: st, HTTP: hc, Log: log,
 		Concurrency: cfg.Collector.MaxConcurrency, Timeout: cfg.Collector.CompanyTimeout,
+		OnlyTech: cfg.Collector.OnlyTech,
 	}
 	companies := func() ([]config.Company, error) { return config.LoadCompanies(*compPath) }
 

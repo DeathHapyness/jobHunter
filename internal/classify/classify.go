@@ -27,9 +27,9 @@ var areaRules = []rule[model.Area]{
 	{model.AreaDevOps, []string{"devops", "dev ops", "devsecops", "platform engineer", "platform engineering", "build engineer", "release engineer", "ci cd"}},
 	{model.AreaSecurity, []string{"security", "seguranca", "cybersecurity", "ciberseguranca", "soc", "pentest", "appsec", "infosec", "iam"}},
 	{model.AreaCloud, []string{"cloud", "aws", "azure", "gcp", "nuvem"}},
-	{model.AreaInfra, []string{"infrastructure", "infraestrutura", "infra", "sysadmin", "system administrator", "administrador de sistemas", "systems engineer", "network", "redes", "linux", "datacenter", "data center", "noc", "suporte de infraestrutura", "it operations", "operations engineer"}},
-	{model.AreaData, []string{"data engineer", "engenheiro de dados", "engenheira de dados", "data scientist", "cientista de dados", "data analyst", "analista de dados", "machine learning", "ml engineer", "analytics", "bi"}},
-	{model.AreaDev, []string{"software engineer", "software developer", "desenvolvedor", "desenvolvedora", "developer", "programador", "backend", "back end", "frontend", "front end", "full stack", "fullstack", "mobile", "ios", "android", "engenheiro de software", "engenheira de software"}},
+	{model.AreaInfra, []string{"infrastructure", "infraestrutura", "infra", "sysadmin", "system administrator", "systems administrator", "administrador de sistemas", "systems engineer", "network", "networking", "redes", "linux", "unix", "windows server", "datacenter", "data center", "noc", "suporte de infraestrutura", "it operations", "operations engineer", "help desk", "helpdesk", "service desk", "suporte tecnico", "it support", "suporte de ti", "suporte ti", "analista de ti", "tecnico de ti", "tecnico em ti", "analista de suporte", "dba", "database administrator", "storage", "virtualizacao", "virtualization", "kubernetes", "it specialist", "it engineer", "it analyst", "it technician", "desktop support", "field engineer", "production engineer", "observability", "telecom"}},
+	{model.AreaData, []string{"data engineer", "engenheiro de dados", "engenheira de dados", "data scientist", "cientista de dados", "data analyst", "analista de dados", "machine learning", "ml engineer", "ml", "ai engineer", "applied ai", "llm", "research engineer", "analytics engineer", "data platform", "bi", "business intelligence", "big data"}},
+	{model.AreaDev, []string{"software engineer", "software developer", "software engineering", "engineer software", "desenvolvedor", "desenvolvedora", "developer", "programador", "programadora", "backend", "back end", "frontend", "front end", "full stack", "fullstack", "mobile", "ios", "android", "engenheiro de software", "engenheira de software", "qa", "quality assurance", "test engineer", "sdet", "tester", "analista de testes", "web developer", "golang", "java", "python", "react", "node", "net", "php", "ruby", "rust", "embedded", "firmware", "systems programmer", "analista de sistemas", "analista desenvolvedor", "engenheiro de computacao", "computer engineer", "technical support engineer", "support engineer"}},
 }
 
 var countryAliases = map[string]string{
@@ -53,6 +53,28 @@ var countryAliases = map[string]string{
 	"australia": "Austrália", "sydney": "Austrália", "switzerland": "Suíça", "zurich": "Suíça",
 }
 
+// nonTech são termos de título que indicam vaga fora de TI mesmo quando há
+// uma palavra técnica (ex.: "Account Executive, Cloud").
+var nonTech = []string{
+	"account executive", "account manager", "sales", "vendas", "vendedor", "vendedora", "comercial",
+	"business development", "recruiter", "recrutador", "recrutadora", "talent acquisition", "people partner",
+	"marketing", "legal", "counsel", "attorney", "advogado", "advogada", "juridico", "paralegal",
+	"accountant", "accounting", "contador", "contadora", "contabil", "finance", "financeiro", "financial", "tax", "payroll",
+	"customer success", "customer support specialist", "sucesso do cliente", "communications", "public relations",
+	"copywriter", "content writer", "designer grafico", "facilities", "executive assistant", "office manager",
+	"physical security", "security officer", "security guard", "vigilante", "procurement", "compras",
+}
+
+// IsTech informa se a vaga é de TI: área técnica reconhecida e nenhum termo
+// claramente não técnico no título.
+func IsTech(j model.Job) bool {
+	title := " " + model.Normalize(j.Title) + " "
+	if containsAny(title, nonTech...) {
+		return false
+	}
+	return j.Area != "" && j.Area != model.AreaOther
+}
+
 // Apply preenche os campos inferíveis que o adaptador deixou vazios ou
 // desconhecidos. Campos já definidos pela fonte são respeitados.
 func Apply(j *model.Job) {
@@ -65,6 +87,9 @@ func Apply(j *model.Job) {
 	}
 	if j.Remote == "" || j.Remote == model.RemoteUnknown {
 		j.Remote = remote(" " + model.Normalize(j.Location+" "+j.Title) + " ")
+	}
+	if j.City == "" {
+		j.City = City(j.Location)
 	}
 	if c := Country(j.Location); c != "" {
 		j.Country = c
@@ -130,6 +155,38 @@ func lookupCountry(n string) string {
 		}
 	}
 	return ""
+}
+
+// City devolve a cidade principal de uma localização: o primeiro segmento
+// do primeiro local, ignorando "remoto" e nomes de país/estado.
+func City(loc string) string {
+	groups := strings.FieldsFunc(loc, func(r rune) bool { return r == '|' || r == ';' || r == '/' || r == '\n' })
+	for _, g := range groups {
+		seg := strings.TrimSpace(strings.Split(g, ",")[0])
+		for _, p := range []string{"Remote - ", "Remoto - ", "Remote, ", "Hybrid - ", "Híbrido - "} {
+			seg = strings.TrimSpace(strings.TrimPrefix(seg, p))
+		}
+		seg = strings.Trim(seg, " -()")
+		n := model.Normalize(seg)
+		if n == "" || len(n) <= 2 || containsAny(" "+n+" ", "remote", "remoto", "remota", "anywhere", "worldwide", "global", "multiple locations", "various") {
+			continue
+		}
+		if _, isCountry := countryOnly[n]; isCountry {
+			continue
+		}
+		return seg
+	}
+	return ""
+}
+
+// countryOnly são nomes que identificam país/região, não cidade.
+var countryOnly = map[string]bool{
+	"brasil": true, "brazil": true, "united states": true, "usa": true, "united kingdom": true, "uk": true,
+	"canada": true, "portugal": true, "germany": true, "ireland": true, "netherlands": true, "spain": true,
+	"france": true, "mexico": true, "argentina": true, "chile": true, "colombia": true, "india": true,
+	"japan": true, "singapore": true, "australia": true, "switzerland": true, "europe": true, "emea": true,
+	"latam": true, "americas": true, "apac": true, "north america": true, "south america": true, "united states of america": true,
+	"sweden": true, "poland": true, "italy": true, "turkiye": true, "turkey": true, "israel": true,
 }
 
 func containsAny(text string, keys ...string) bool {

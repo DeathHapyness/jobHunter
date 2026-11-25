@@ -40,3 +40,41 @@ func TestApplyKeepsSourceValues(t *testing.T) {
 		t.Fatalf("source values overwritten: %+v", j)
 	}
 }
+
+func TestIsTech(t *testing.T) {
+	cases := map[string]bool{
+		"Analista de Suporte de TI Jr":               true,
+		"Site Reliability Engineer":                  true,
+		"QA Engineer":                                true,
+		"Help Desk Analyst":                          true,
+		"Account Executive, Cloud":                   false,
+		"3P Revenue Accounting & Reporting":          false,
+		"Area Lead, Data Center Security Operations": true,
+		"Legal Counsel, Infrastructure":              false,
+		"Recruiter, Engineering":                     false,
+		"Office Manager":                             false,
+	}
+	for title, want := range cases {
+		j := model.Job{Title: title}
+		Apply(&j)
+		if got := IsTech(j); got != want {
+			t.Errorf("IsTech(%q)=%v want %v (area=%s)", title, got, want, j.Area)
+		}
+	}
+}
+
+func TestCity(t *testing.T) {
+	cases := map[string]string{
+		"São Paulo, SP, Brasil":                 "São Paulo",
+		"Remote - Brasil":                       "",
+		"Remote, United States | Seattle, WA":   "Seattle",
+		"San Francisco, CA | New York City, NY": "San Francisco",
+		"Brasil":                                "",
+		"":                                      "",
+	}
+	for in, want := range cases {
+		if got := City(in); got != want {
+			t.Errorf("City(%q)=%q want %q", in, got, want)
+		}
+	}
+}

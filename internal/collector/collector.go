@@ -32,7 +32,9 @@ type Collector struct {
 	Concurrency int
 	Timeout     time.Duration // por empresa
 	Lookup      Lookup
-	Now         func() time.Time
+	// OnlyTech descarta vagas que não são de TI (classify.IsTech).
+	OnlyTech bool
+	Now      func() time.Time
 
 	running atomic.Bool
 }
@@ -108,7 +110,7 @@ func (c *Collector) RunCompany(ctx context.Context, comp config.Company) (run st
 			log.Error("falha ao registrar coleta", "erro", err)
 		}
 		if run.OK {
-			log.Info("empresa coletada", "vagas", run.Jobs, "fechadas", run.Closed,
+			log.Info("empresa coletada", "vagas", run.Jobs, "fora_de_ti", run.Skipped, "fechadas", run.Closed,
 				"duração", run.FinishedAt.Sub(run.StartedAt).Round(time.Millisecond))
 		} else {
 			log.Warn("falha na coleta", "erro", run.Error, "vagas_lidas", run.Jobs)
@@ -138,6 +140,10 @@ func (c *Collector) RunCompany(ctx context.Context, comp config.Company) (run st
 		}
 		j.Source, j.Company, j.Aggregator = a.Source(), comp.Name, a.Aggregator()
 		classify.Apply(&j)
+		if c.OnlyTech && !classify.IsTech(j) {
+			run.Skipped++
+			return nil
+		}
 		j.Fingerprint = model.Fingerprint(j.Company, j.Title, j.Location)
 		batch = append(batch, j)
 		run.Jobs++

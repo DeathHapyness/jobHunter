@@ -115,7 +115,7 @@ func TestFilters(t *testing.T) {
 	a.Description = "Kubernetes e Terraform"
 	b := job("Beta", "2", "Desenvolvedor Backend")
 	b.Level, b.Area, b.Remote = model.LevelSenior, model.AreaDev, model.RemoteNo
-	b.Location = "Lisboa, Portugal"
+	b.Location, b.City = "Lisboa, Portugal", "Lisboa"
 	s.UpsertJobs(ctx, []model.Job{a}, base)
 	s.UpsertJobs(ctx, []model.Job{b}, base.Add(2*time.Hour))
 
@@ -130,7 +130,7 @@ func TestFilters(t *testing.T) {
 		{"empresa", Filter{Companies: []string{"Beta"}}, 1},
 		{"nível+área", Filter{Levels: []string{"junior"}, Areas: []string{"devops"}}, 1},
 		{"remoto", Filter{Remotes: []string{"nao"}}, 1},
-		{"cidade", Filter{City: "lisboa"}, 1},
+		{"cidade", Filter{Cities: []string{"Lisboa", "Recife"}}, 1},
 		{"novas desde visita", Filter{SeenSince: base.Add(time.Hour)}, 1},
 		{"publicação", Filter{PostedSince: base.Add(time.Hour)}, 1},
 		{"query com aspas", Filter{Query: `"terra`}, 1},

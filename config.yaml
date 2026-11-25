@@ -16,3 +16,4 @@ collector:
   retries: 3
   user_agent: "vagas-hub/0.1 (agregador pessoal de vagas)"
   run_on_start: true
+  only_tech: true       # guarda só vagas de TI

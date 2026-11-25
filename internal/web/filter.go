@@ -20,7 +20,7 @@ type formFilter struct {
 	Areas     []string // area
 	Remotes   []string // remoto
 	Countries []string // pais
-	City      string   // cidade
+	Cities    []string // cidade
 	Posted    string   // publicada: 24h | 7d | 30d
 	OnlyNew   bool     // novas=1
 	Statuses  []string // status
@@ -38,7 +38,7 @@ func parseFilter(q url.Values) formFilter {
 		Areas:     clean(q["area"]),
 		Remotes:   clean(q["remoto"]),
 		Countries: clean(q["pais"]),
-		City:      strings.TrimSpace(q.Get("cidade")),
+		Cities:    clean(q["cidade"]),
 		Posted:    q.Get("publicada"),
 		OnlyNew:   q.Get("novas") == "1",
 		Statuses:  clean(q["status"]),
@@ -63,7 +63,7 @@ var postedDur = map[string]time.Duration{"": 0, "24h": 24 * time.Hour, "7d": 7 *
 func (f formFilter) toStore(now, lastVisit time.Time) store.Filter {
 	sf := store.Filter{
 		Query: f.Q, Companies: f.Companies, Sources: f.Sources, Levels: f.Levels,
-		Areas: f.Areas, Remotes: f.Remotes, Countries: f.Countries, City: f.City,
+		Areas: f.Areas, Remotes: f.Remotes, Countries: f.Countries, Cities: f.Cities,
 		Statuses: f.Statuses, Sort: store.Sort(f.Sort),
 		HideDiscarded: !f.ShowDisc && !contains(f.Statuses, string(model.StatusDiscarded)),
 		Limit:         pageSize, Offset: (f.Page - 1) * pageSize,
@@ -91,11 +91,10 @@ func (f formFilter) encode(page int) string {
 		}
 	}
 	set("q", f.Q)
-	set("cidade", f.City)
 	set("publicada", f.Posted)
 	for k, vals := range map[string][]string{
 		"empresa": f.Companies, "fonte": f.Sources, "nivel": f.Levels, "area": f.Areas,
-		"remoto": f.Remotes, "pais": f.Countries, "status": f.Statuses,
+		"remoto": f.Remotes, "pais": f.Countries, "cidade": f.Cities, "status": f.Statuses,
 	} {
 		for _, x := range vals {
 			v.Add(k, x)
@@ -137,6 +136,8 @@ func (f formFilter) Has(name, val string) bool {
 		vals = f.Remotes
 	case "pais":
 		vals = f.Countries
+	case "cidade":
+		vals = f.Cities
 	case "status":
 		vals = f.Statuses
 	case "publicada":
@@ -156,6 +157,14 @@ func (f formFilter) Count(name string) int {
 		return len(f.Sources)
 	case "pais":
 		return len(f.Countries)
+	case "cidade":
+		return len(f.Cities)
+	case "nivel":
+		return len(f.Levels)
+	case "area":
+		return len(f.Areas)
+	case "remoto":
+		return len(f.Remotes)
 	}
 	return 0
 }

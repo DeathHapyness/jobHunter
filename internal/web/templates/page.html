@@ -8,6 +8,7 @@
 <title>vagas</title>
 <link rel="stylesheet" href="{{asset "style.css"}}">
 <script src="{{asset "htmx.min.js"}}" defer></script>
+<script src="{{asset "app.js"}}" defer></script>
 </head>
 <body>
 <header class="top">
@@ -27,21 +28,22 @@
   </label>
 
   <div class="line">
-    {{template "select" dict "Name" "nivel" "Label" "nível" "Opts" .Levels "F" .Filter}}
-    {{template "select" dict "Name" "area" "Label" "área" "Opts" .Areas "F" .Filter}}
-    {{template "select" dict "Name" "remoto" "Label" "modalidade" "Opts" .Remotes "F" .Filter}}
+    {{template "drop" dict "Name" "nivel" "Label" "nível" "Opts" .Levels "F" .Filter}}
+    {{template "drop" dict "Name" "area" "Label" "área" "Opts" .Areas "F" .Filter}}
+    {{template "drop" dict "Name" "remoto" "Label" "modalidade" "Opts" .Remotes "F" .Filter}}
+    {{template "drop" dict "Name" "cidade" "Label" "cidade" "Opts" (opts .Facets.Cities) "F" .Filter "Search" true}}
+    {{template "drop" dict "Name" "pais" "Label" "país" "Opts" (opts .Facets.Countries) "F" .Filter}}
     <select name="publicada" aria-label="Data de publicação">
       {{range .PostedOpts}}<option value="{{.Value}}" {{if $.Filter.Has "publicada" .Value}}selected{{end}}>{{if .Value}}{{.Label}}{{else}}qualquer data{{end}}</option>{{end}}
     </select>
     <label class="check"><input type="checkbox" name="novas" value="1" {{if .Filter.OnlyNew}}checked{{end}}> só novas <span class="dim">(≤7 dias)</span></label>
   </div>
 
-  <details class="more" {{if or .Filter.Companies .Filter.Sources .Filter.Countries .Filter.City .Filter.Statuses .Filter.ShowDisc (eq .Filter.Sort "empresa")}}open{{end}}>
+  <details class="more" {{if or .Filter.Companies .Filter.Sources .Filter.Statuses .Filter.ShowDisc (eq .Filter.Sort "empresa")}}open{{end}}>
     <summary class="btn btn-filter">+ filtros</summary>
     <div class="more-grid">
       {{template "checks" dict "Name" "empresa" "Label" "empresa" "Values" .Facets.Companies "F" .Filter}}
       {{template "checks" dict "Name" "fonte" "Label" "fonte" "Values" .Facets.Sources "F" .Filter}}
-      {{template "checks" dict "Name" "pais" "Label" "país" "Values" .Facets.Countries "F" .Filter}}
       <fieldset>
         <legend>status</legend>
         {{range .StatusOpts}}<label class="check"><input type="checkbox" name="status" value="{{.Value}}" {{if $.Filter.Has "status" .Value}}checked{{end}}> {{lower .Label}}</label>{{end}}
@@ -49,7 +51,6 @@
       </fieldset>
       <fieldset>
         <legend>outros</legend>
-        <label class="field">cidade <input type="text" name="cidade" value="{{.Filter.City}}" size="14"></label>
         <label class="field">ordem
           <select name="ordem">{{range .SortOpts}}<option value="{{.Value}}" {{if $.Filter.Has "ordem" .Value}}selected{{end}}>{{lower .Label}}</option>{{end}}</select>
         </label>
@@ -74,11 +75,14 @@
 </body>
 </html>{{end}}
 
-{{define "select"}}{{$f := .F}}{{$name := .Name}}
-<select name="{{.Name}}" aria-label="{{.Label}}">
-  <option value="">{{.Label}}: todos</option>
-  {{range .Opts}}<option value="{{.Value}}" {{if $f.Has $name .Value}}selected{{end}}>{{lower .Label}}</option>{{end}}
-</select>
+{{define "drop"}}{{$f := .F}}{{$name := .Name}}
+<details class="drop">
+  <summary class="btn btn-drop{{if .F.Count .Name}} on{{end}}" data-label="{{.Label}}">{{.Label}}{{with .F.Count .Name}}: {{.}}{{end}} ▾</summary>
+  <div class="drop-list">
+    {{if .Search}}<input class="drop-search" type="search" placeholder="filtrar…" aria-label="Filtrar {{.Label}}" data-filter-list>{{end}}
+    {{range .Opts}}<label class="check"><input type="checkbox" name="{{$name}}" value="{{.Value}}" {{if $f.Has $name .Value}}checked{{end}}> {{lower .Label}}</label>{{else}}<span class="dim">—</span>{{end}}
+  </div>
+</details>
 {{end}}
 
 {{define "checks"}}{{$f := .F}}{{$name := .Name}}

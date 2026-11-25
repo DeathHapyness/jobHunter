@@ -160,3 +160,17 @@ fieldset .check { display: flex; margin: 0; }
 .prompt span { color: var(--amber); }
 .summary b { color: var(--amber); }
 legend { color: var(--blue); }
+
+/* dropdowns de múltipla escolha */
+.drop { position: relative; }
+.btn-drop { --c: var(--fg); }
+.btn-drop.on { --c: var(--blue); font-weight: 700; }
+.drop[open] .btn-drop { background: var(--c); color: var(--bg); }
+.drop-list {
+  position: absolute; z-index: 20; top: calc(100% + 2px); left: 0; min-width: 200px; max-width: 320px;
+  max-height: 320px; overflow: auto; background: var(--bg); border: 1px solid var(--fg);
+  box-shadow: 4px 4px 0 var(--line); padding: 6px 8px; display: grid; gap: 1px;
+}
+.drop-list .check { display: flex; margin: 0; padding: 1px 2px; }
+.drop-list .check:hover { background: var(--sel); }
+.drop-search { font: inherit; width: 100%; margin-bottom: 4px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 1px 4px; }
