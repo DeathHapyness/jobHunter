@@ -181,3 +181,7 @@ legend { color: var(--blue); }
 .blink { animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+
+/* cascata de local */
+.places, #places-in { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.arrow { color: var(--amber); font-weight: 700; }

@@ -37,7 +37,7 @@ func setup(t *testing.T) (*Server, *store.Store) {
 	t.Cleanup(func() { st.Close() })
 	jobs := []model.Job{
 		{Source: "greenhouse", SourceJobID: "1", Company: "Acme", Title: "SRE Júnior", URL: "https://x/1",
-			Location: "São Paulo, Brasil", Country: "Brasil", Level: model.LevelJunior, Area: model.AreaSRE, Remote: model.RemoteYes},
+			Location: "São Paulo, SP, Brasil", City: "São Paulo", State: "SP", Country: "Brasil", Level: model.LevelJunior, Area: model.AreaSRE, Remote: model.RemoteYes},
 		{Source: "greenhouse", SourceJobID: "2", Company: "Beta", Title: "Backend <script>", URL: "https://x/2",
 			Level: model.LevelSenior, Area: model.AreaDev, Remote: model.RemoteNo},
 	}
@@ -201,5 +201,25 @@ func TestCollectPollsUntilDone(t *testing.T) {
 	rec = get(t, srv, "/collect/status?apos=3", true)
 	if rec.Header().Get("HX-Trigger") != "collected" || !strings.Contains(rec.Body.String(), "7 vagas novas") {
 		t.Fatalf("finished status wrong: %v %s", rec.Header(), rec.Body)
+	}
+}
+
+func TestPlacesCascade(t *testing.T) {
+	srv, _ := setup(t)
+	body := get(t, srv, "/locais", true).Body.String()
+	if strings.Contains(body, `name="estado"`) || strings.Contains(body, `name="cidade"`) {
+		t.Fatal("state/city must appear only after a country")
+	}
+	body = get(t, srv, "/locais?pais=Brasil", true).Body.String()
+	if !strings.Contains(body, `name="estado"`) || strings.Contains(body, `name="cidade"`) {
+		t.Fatalf("state should appear after country: %s", body)
+	}
+	body = get(t, srv, "/locais?pais=Brasil&estado=SP", true).Body.String()
+	if !strings.Contains(body, `value="São Paulo"`) {
+		t.Fatalf("city should appear after state: %s", body)
+	}
+	rec := get(t, srv, "/locais?estado=SP&cidade=S%C3%A3o+Paulo", true)
+	if rec.Header().Get("HX-Trigger-After-Swap") != "refilter" {
+		t.Fatal("orphan state/city must be pruned and trigger refilter")
 	}
 }

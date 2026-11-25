@@ -88,13 +88,23 @@ func Apply(j *model.Job) {
 	if j.Remote == "" || j.Remote == model.RemoteUnknown {
 		j.Remote = remote(" " + model.Normalize(j.Location+" "+j.Title) + " ")
 	}
+	city, state, country := Place(j.Location)
 	if j.City == "" {
-		j.City = City(j.Location)
+		j.City = city
 	}
-	if c := Country(j.Location); c != "" {
-		j.Country = c
-	} else if c := Country(j.Country); c != "" {
-		j.Country = c
+	j.City = CanonicalCity(j.City)
+	if j.State == "" {
+		j.State = state
+	}
+	switch {
+	case Country(j.Location) != "":
+		j.Country = Country(j.Location)
+	case Country(j.Country) != "":
+		j.Country = Country(j.Country)
+	case country != "" && !strings.ContainsAny(j.Location, "|;/"):
+		// Inferido do estado (ex.: "Seattle, WA"); só com um único local,
+		// para não escolher um país arbitrário entre vários.
+		j.Country = country
 	}
 }
 
@@ -153,28 +163,6 @@ func lookupCountry(n string) string {
 		if c, ok := countryAliases[strings.Join(words[i:], " ")]; ok {
 			return c
 		}
-	}
-	return ""
-}
-
-// City devolve a cidade principal de uma localização: o primeiro segmento
-// do primeiro local, ignorando "remoto" e nomes de país/estado.
-func City(loc string) string {
-	groups := strings.FieldsFunc(loc, func(r rune) bool { return r == '|' || r == ';' || r == '/' || r == '\n' })
-	for _, g := range groups {
-		seg := strings.TrimSpace(strings.Split(g, ",")[0])
-		for _, p := range []string{"Remote - ", "Remoto - ", "Remote, ", "Hybrid - ", "Híbrido - "} {
-			seg = strings.TrimSpace(strings.TrimPrefix(seg, p))
-		}
-		seg = strings.Trim(seg, " -()")
-		n := model.Normalize(seg)
-		if n == "" || len(n) <= 2 || containsAny(" "+n+" ", "remote", "remoto", "remota", "anywhere", "worldwide", "global", "multiple locations", "various") {
-			continue
-		}
-		if _, isCountry := countryOnly[n]; isCountry {
-			continue
-		}
-		return seg
 	}
 	return ""
 }

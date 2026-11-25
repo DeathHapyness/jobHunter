@@ -26,6 +26,7 @@ type Filter struct {
 	Areas     []string
 	Remotes   []string
 	Countries []string
+	States    []string
 	Cities    []string
 	// PostedSince filtra por data de publicação (ou primeira vez vista,
 	// quando a fonte não informa).
@@ -42,7 +43,7 @@ type Filter struct {
 }
 
 const jobColumns = `j.id, j.source, j.source_job_id, j.company, j.title, j.description, j.location,
-	j.city, j.country, j.remote, j.level, j.area, j.url, j.posted_at, j.first_seen, j.last_seen, j.closed_at,
+	j.city, j.state, j.country, j.remote, j.level, j.area, j.url, j.posted_at, j.first_seen, j.last_seen, j.closed_at,
 	j.fingerprint, j.aggregator, COALESCE(st.status, 'nova'), COALESCE(st.notes, '')`
 
 // ListJobs devolve uma página de vagas e o total que atende ao filtro.
@@ -118,6 +119,7 @@ func buildWhere(f Filter) ([]string, []any) {
 	in("j.area", f.Areas)
 	in("j.remote", f.Remotes)
 	in("j.country", f.Countries)
+	in("j.state", f.States)
 	in("j.city", f.Cities)
 	if !f.PostedSince.IsZero() {
 		where = append(where, "COALESCE(j.posted_at, j.first_seen) >= ?")
@@ -153,7 +155,65 @@ type Facets struct {
 	Companies []string
 	Sources   []string
 	Countries []string
-	Cities    []string
+}
+
+// Places são as opções da cascata país → estado → cidade.
+type Places struct {
+	States []string
+	Cities []string
+	// NoStates indica que os países escolhidos não têm estado informado:
+	// a cidade é escolhida direto após o país.
+	NoStates bool
+}
+
+// PlaceFacets lista estados dos países escolhidos e cidades dos estados
+// escolhidos (ou dos países, quando eles não têm estados).
+func (s *Store) PlaceFacets(ctx context.Context, countries, states []string) (Places, error) {
+	var p Places
+	countries, states = nonEmpty(countries), nonEmpty(states)
+	if len(countries) == 0 {
+		return p, nil
+	}
+	var err error
+	if p.States, err = s.distinctWhere(ctx, "state", "country", countries); err != nil {
+		return p, err
+	}
+	switch {
+	case len(states) > 0:
+		p.Cities, err = s.distinctWhere(ctx, "city", "state", states, "country", countries)
+	case len(p.States) == 0:
+		p.NoStates = true
+		p.Cities, err = s.distinctWhere(ctx, "city", "country", countries)
+	}
+	return p, err
+}
+
+// distinctWhere lista valores distintos de col entre as vagas abertas, com
+// pares (coluna, valores) como filtros IN.
+func (s *Store) distinctWhere(ctx context.Context, col string, filters ...any) ([]string, error) {
+	q := "SELECT DISTINCT " + col + " FROM jobs WHERE closed_at IS NULL AND " + col + " <> ''"
+	var args []any
+	for i := 0; i+1 < len(filters); i += 2 {
+		c, vals := filters[i].(string), filters[i+1].([]string)
+		q += " AND " + c + " IN (" + placeholders(len(vals)) + ")"
+		for _, v := range vals {
+			args = append(args, v)
+		}
+	}
+	rows, err := s.db.QueryContext(ctx, q+" ORDER BY "+col+" COLLATE NOCASE LIMIT 500", args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []string
+	for rows.Next() {
+		var v string
+		if err := rows.Scan(&v); err != nil {
+			return nil, err
+		}
+		out = append(out, v)
+	}
+	return out, rows.Err()
 }
 
 // Facets lista valores distintos entre as vagas abertas.
@@ -166,10 +226,7 @@ func (s *Store) Facets(ctx context.Context) (Facets, error) {
 	if f.Sources, err = s.distinct(ctx, "source"); err != nil {
 		return f, err
 	}
-	if f.Countries, err = s.distinct(ctx, "country"); err != nil {
-		return f, err
-	}
-	f.Cities, err = s.distinct(ctx, "city")
+	f.Countries, err = s.distinct(ctx, "country")
 	return f, err
 }
 
@@ -199,7 +256,7 @@ func scanJob(sc scanner) (model.JobView, error) {
 	var first, last int64
 	var remote, level, area, status string
 	err := sc.Scan(&v.ID, &v.Source, &v.SourceJobID, &v.Company, &v.Title, &v.Description, &v.Location,
-		&v.City, &v.Country, &remote, &level, &area, &v.URL, &posted, &first, &last, &closed,
+		&v.City, &v.State, &v.Country, &remote, &level, &area, &v.URL, &posted, &first, &last, &closed,
 		&v.Fingerprint, &v.Aggregator, &status, &v.Notes)
 	if err != nil {
 		return v, err

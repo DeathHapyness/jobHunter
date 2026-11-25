@@ -33,4 +33,17 @@
     s.textContent = base + (n ? ": " + n : "") + " ▾";
     s.classList.toggle("on", n > 0);
   });
+  // Mantém aberto o dropdown que estava aberto quando um bloco é redesenhado
+  // (ex.: escolher vários países seguidos na cascata de local).
+  var reopen = null;
+  document.addEventListener("htmx:beforeSwap", function (e) {
+    var open = e.detail.target && e.detail.target.querySelector && e.detail.target.querySelector("details.drop[open]");
+    reopen = open ? open.getAttribute("data-name") : null;
+  });
+  document.addEventListener("htmx:afterSwap", function (e) {
+    if (!reopen) return;
+    var d = document.querySelector('details.drop[data-name="' + reopen + '"]');
+    if (d) d.setAttribute("open", "");
+    reopen = null;
+  });
 })();

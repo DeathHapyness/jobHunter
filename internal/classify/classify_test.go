@@ -63,18 +63,31 @@ func TestIsTech(t *testing.T) {
 	}
 }
 
-func TestCity(t *testing.T) {
-	cases := map[string]string{
-		"São Paulo, SP, Brasil":                 "São Paulo",
-		"Remote - Brasil":                       "",
-		"Remote, United States | Seattle, WA":   "Seattle",
-		"San Francisco, CA | New York City, NY": "San Francisco",
-		"Brasil":                                "",
-		"":                                      "",
+func TestPlace(t *testing.T) {
+	cases := []struct{ in, city, state, country string }{
+		{"São Paulo, SP, Brasil", "São Paulo", "SP", "Brasil"},
+		{"Curitiba, Paraná", "Curitiba", "PR", "Brasil"},
+		{"Remote - Brasil", "", "", "Brasil"},
+		{"Remote, United States | Seattle, WA", "Seattle", "WA", "Estados Unidos"},
+		{"San Francisco, CA | New York City, NY", "San Francisco", "CA", "Estados Unidos"},
+		{"Dublin, Ireland", "Dublin", "", "Irlanda"},
+		{"Lisboa, Lisboa, Portugal", "Lisboa", "Lisboa", "Portugal"},
+		{"Brasil", "", "", "Brasil"},
+		{"Austin, Texas, United States", "Austin", "TX", "Estados Unidos"},
+		{"", "", "", ""},
 	}
-	for in, want := range cases {
-		if got := City(in); got != want {
-			t.Errorf("City(%q)=%q want %q", in, got, want)
+	for _, c := range cases {
+		city, state, country := Place(c.in)
+		if city != c.city || state != c.state || country != c.country {
+			t.Errorf("Place(%q) = %q,%q,%q want %q,%q,%q", c.in, city, state, country, c.city, c.state, c.country)
 		}
+	}
+}
+
+func TestCanonicalCity(t *testing.T) {
+	j := model.Job{Title: "SRE", Location: "Sao Paulo, SP"}
+	Apply(&j)
+	if j.City != "São Paulo" || j.State != "SP" || j.Country != "Brasil" {
+		t.Fatalf("got %q %q %q", j.City, j.State, j.Country)
 	}
 }

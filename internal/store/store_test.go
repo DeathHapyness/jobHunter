@@ -115,7 +115,7 @@ func TestFilters(t *testing.T) {
 	a.Description = "Kubernetes e Terraform"
 	b := job("Beta", "2", "Desenvolvedor Backend")
 	b.Level, b.Area, b.Remote = model.LevelSenior, model.AreaDev, model.RemoteNo
-	b.Location, b.City = "Lisboa, Portugal", "Lisboa"
+	b.Location, b.City, b.State, b.Country = "Lisboa, Portugal", "Lisboa", "Lisboa", "Portugal"
 	s.UpsertJobs(ctx, []model.Job{a}, base)
 	s.UpsertJobs(ctx, []model.Job{b}, base.Add(2*time.Hour))
 
@@ -193,5 +193,38 @@ func TestAppState(t *testing.T) {
 	s.SetAppState(ctx, "k", "2")
 	if v, _ := s.GetAppState(ctx, "k"); v != "2" {
 		t.Fatalf("got %q", v)
+	}
+}
+
+func TestPlaceFacets(t *testing.T) {
+	ctx := context.Background()
+	s := openTest(t)
+	mk := func(id, city, state, country string) model.Job {
+		j := job("Acme", id, "SRE "+id)
+		j.City, j.State, j.Country = city, state, country
+		return j
+	}
+	s.UpsertJobs(ctx, []model.Job{
+		mk("1", "São Paulo", "SP", "Brasil"), mk("2", "Campinas", "SP", "Brasil"),
+		mk("3", "Curitiba", "PR", "Brasil"), mk("4", "Dublin", "", "Irlanda"),
+	}, time.Now())
+	p, _ := s.PlaceFacets(ctx, nil, nil)
+	if len(p.States) != 0 || len(p.Cities) != 0 {
+		t.Fatalf("nothing before choosing a country: %+v", p)
+	}
+	p, _ = s.PlaceFacets(ctx, []string{"Brasil"}, nil)
+	if len(p.States) != 2 || len(p.Cities) != 0 {
+		t.Fatalf("states only after country: %+v", p)
+	}
+	p, _ = s.PlaceFacets(ctx, []string{"Brasil"}, []string{"SP"})
+	if len(p.Cities) != 2 {
+		t.Fatalf("cities of SP: %+v", p)
+	}
+	p, _ = s.PlaceFacets(ctx, []string{"Irlanda"}, nil)
+	if !p.NoStates || len(p.Cities) != 1 {
+		t.Fatalf("country without states goes straight to cities: %+v", p)
+	}
+	if _, total, _ := s.ListJobs(ctx, Filter{Countries: []string{"Brasil"}, States: []string{"SP"}}); total != 2 {
+		t.Fatalf("state filter: %d", total)
 	}
 }

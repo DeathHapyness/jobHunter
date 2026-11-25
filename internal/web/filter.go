@@ -20,6 +20,7 @@ type formFilter struct {
 	Areas     []string // area
 	Remotes   []string // remoto
 	Countries []string // pais
+	States    []string // estado
 	Cities    []string // cidade
 	Posted    string   // publicada: 24h | 7d | 30d
 	OnlyNew   bool     // novas=1
@@ -38,6 +39,7 @@ func parseFilter(q url.Values) formFilter {
 		Areas:     clean(q["area"]),
 		Remotes:   clean(q["remoto"]),
 		Countries: clean(q["pais"]),
+		States:    clean(q["estado"]),
 		Cities:    clean(q["cidade"]),
 		Posted:    q.Get("publicada"),
 		OnlyNew:   q.Get("novas") == "1",
@@ -63,7 +65,7 @@ var postedDur = map[string]time.Duration{"": 0, "24h": 24 * time.Hour, "7d": 7 *
 func (f formFilter) toStore(now, lastVisit time.Time) store.Filter {
 	sf := store.Filter{
 		Query: f.Q, Companies: f.Companies, Sources: f.Sources, Levels: f.Levels,
-		Areas: f.Areas, Remotes: f.Remotes, Countries: f.Countries, Cities: f.Cities,
+		Areas: f.Areas, Remotes: f.Remotes, Countries: f.Countries, States: f.States, Cities: f.Cities,
 		Statuses: f.Statuses, Sort: store.Sort(f.Sort),
 		HideDiscarded: !f.ShowDisc && !contains(f.Statuses, string(model.StatusDiscarded)),
 		Limit:         pageSize, Offset: (f.Page - 1) * pageSize,
@@ -94,7 +96,7 @@ func (f formFilter) encode(page int) string {
 	set("publicada", f.Posted)
 	for k, vals := range map[string][]string{
 		"empresa": f.Companies, "fonte": f.Sources, "nivel": f.Levels, "area": f.Areas,
-		"remoto": f.Remotes, "pais": f.Countries, "cidade": f.Cities, "status": f.Statuses,
+		"remoto": f.Remotes, "pais": f.Countries, "estado": f.States, "cidade": f.Cities, "status": f.Statuses,
 	} {
 		for _, x := range vals {
 			v.Add(k, x)
@@ -136,6 +138,8 @@ func (f formFilter) Has(name, val string) bool {
 		vals = f.Remotes
 	case "pais":
 		vals = f.Countries
+	case "estado":
+		vals = f.States
 	case "cidade":
 		vals = f.Cities
 	case "status":
@@ -157,6 +161,8 @@ func (f formFilter) Count(name string) int {
 		return len(f.Sources)
 	case "pais":
 		return len(f.Countries)
+	case "estado":
+		return len(f.States)
 	case "cidade":
 		return len(f.Cities)
 	case "nivel":
@@ -215,3 +221,18 @@ var (
 	postedOpts = []option{{"", "Qualquer data"}, {"24h", "Últimas 24h"}, {"7d", "Últimos 7 dias"}, {"30d", "Últimos 30 dias"}}
 	sortOpts   = []option{{string(store.SortRecent), "Mais recentes"}, {string(store.SortCompany), "Empresa"}}
 )
+
+// intersect mantém em sel só os valores presentes em valid.
+func intersect(sel, valid []string) []string {
+	ok := make(map[string]bool, len(valid))
+	for _, v := range valid {
+		ok[v] = true
+	}
+	var out []string
+	for _, v := range sel {
+		if ok[v] {
+			out = append(out, v)
+		}
+	}
+	return out
+}

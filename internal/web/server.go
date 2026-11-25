@@ -70,6 +70,7 @@ func New(s *store.Store, c Collector, log *slog.Logger) (*Server, error) {
 	srv.mux.HandleFunc("POST /jobs/{id}/notes", srv.setNotes)
 	srv.mux.HandleFunc("POST /collect", srv.collect)
 	srv.mux.HandleFunc("GET /collect/status", srv.collectStatus)
+	srv.mux.HandleFunc("GET /locais", srv.places)
 	srv.mux.HandleFunc("GET /healthz", srv.healthz)
 	return srv, nil
 }
@@ -90,6 +91,7 @@ type pageData struct {
 	PrevURL     string
 	NextURL     string
 	Facets      store.Facets
+	Places      placesData
 	Statuses    []store.SourceStatus
 	LastVisit   time.Time
 	Collecting  bool
@@ -115,6 +117,11 @@ func (s *Server) index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ff := parseFilter(r.URL.Query())
+	places, _, err := s.placeOptions(ctx, &ff)
+	if err != nil {
+		s.fail(w, err)
+		return
+	}
 	f := ff.toStore(time.Now(), lastVisit)
 	jobs, total, err := s.store.ListJobs(ctx, f)
 	if err != nil {
@@ -122,7 +129,7 @@ func (s *Server) index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := pageData{
-		Filter: ff, Jobs: jobs, Total: total, Page: ff.Page,
+		Filter: ff, Jobs: jobs, Total: total, Page: ff.Page, Places: places,
 		Pages:      (total + pageSize - 1) / pageSize,
 		LastVisit:  lastVisit,
 		Collecting: s.collector != nil && s.collector.Running(),
@@ -180,6 +187,51 @@ func (s *Server) lastVisit(ctx context.Context, record bool) (time.Time, error) 
 		}
 	}
 	return parseUnix(prev), nil
+}
+
+// placesData alimenta a cascata país → estado → cidade.
+type placesData struct {
+	Countries []string
+	P         store.Places
+	F         formFilter
+}
+
+// placeOptions calcula as opções da cascata e remove do filtro estados e
+// cidades que não pertencem mais aos países/estados escolhidos. Devolve
+// true se algo foi removido.
+func (s *Server) placeOptions(ctx context.Context, ff *formFilter) (placesData, bool, error) {
+	before := len(ff.States) + len(ff.Cities)
+	p, err := s.store.PlaceFacets(ctx, ff.Countries, ff.States)
+	if err != nil {
+		return placesData{}, false, err
+	}
+	if pruned := intersect(ff.States, p.States); len(pruned) != len(ff.States) {
+		ff.States = pruned
+		if p, err = s.store.PlaceFacets(ctx, ff.Countries, ff.States); err != nil {
+			return placesData{}, false, err
+		}
+	}
+	ff.Cities = intersect(ff.Cities, p.Cities)
+	facets, err := s.store.Facets(ctx)
+	if err != nil {
+		return placesData{}, false, err
+	}
+	return placesData{Countries: facets.Countries, P: p, F: *ff}, before != len(ff.States)+len(ff.Cities), nil
+}
+
+// places devolve só o bloco de local, redesenhado ao mudar país/estado.
+func (s *Server) places(w http.ResponseWriter, r *http.Request) {
+	ff := parseFilter(r.URL.Query())
+	data, pruned, err := s.placeOptions(r.Context(), &ff)
+	if err != nil {
+		s.fail(w, err)
+		return
+	}
+	if pruned {
+		// Seleções inválidas foram removidas: a lista precisa ser refiltrada.
+		w.Header().Set("HX-Trigger-After-Swap", "refilter")
+	}
+	s.render(w, "places", data)
 }
 
 func (s *Server) setStatus(w http.ResponseWriter, r *http.Request) {

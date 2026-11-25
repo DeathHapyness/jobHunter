@@ -78,4 +78,8 @@ CREATE INDEX collection_runs_latest ON collection_runs (source, company, finishe
 ALTER TABLE jobs ADD COLUMN city TEXT NOT NULL DEFAULT '';
 CREATE INDEX jobs_city ON jobs (city);
 `,
+	`
+ALTER TABLE jobs ADD COLUMN state TEXT NOT NULL DEFAULT '';
+CREATE INDEX jobs_place ON jobs (country, state, city);
+`,
 }

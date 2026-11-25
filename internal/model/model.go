@@ -75,6 +75,7 @@ type Job struct {
 	Description string
 	Location    string
 	City        string
+	State       string
 	Country     string
 	Remote      Remote
 	Level       Level
