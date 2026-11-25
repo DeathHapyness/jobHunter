@@ -24,3 +24,37 @@ companies:
   - {name: Cockroach Labs, source: greenhouse, id: cockroachlabs}
   - {name: Fastly, source: greenhouse, id: fastly}
   - {name: PagerDuty, source: greenhouse, id: pagerduty}
+
+  # --- Lever ---
+  - {name: Spotify, source: lever, id: spotify}
+  - {name: Palantir, source: lever, id: palantir}
+
+  # --- Ashby ---
+  - {name: OpenAI, source: ashby, id: openai}
+  - {name: ElevenLabs, source: ashby, id: elevenlabs}
+  - {name: Supabase, source: ashby, id: supabase}
+  - {name: Linear, source: ashby, id: linear}
+  - {name: PostHog, source: ashby, id: posthog}
+  - {name: Notion, source: ashby, id: notion}
+  - {name: Ramp, source: ashby, id: ramp}
+
+  # --- Workable ---
+  - {name: Hugging Face, source: workable, id: huggingface}
+
+  # --- SmartRecruiters ---
+  # Desativadas: o robots.txt de api.smartrecruiters.com proíbe robôs (exceto LinkedInBot).
+  - {name: Bosch, source: smartrecruiters, id: BoschGroup, disabled: true}
+  - {name: ServiceNow, source: smartrecruiters, id: ServiceNow, disabled: true}
+  - {name: Experian, source: smartrecruiters, id: Experian, disabled: true}
+
+  # --- Recruitee ---
+  - {name: bunq, source: recruitee, id: bunq}
+
+  # --- Personio ---
+  - {name: Personio, source: personio, id: personio}
+
+  # --- Teamtailor ---
+  - {name: Teamtailor, source: teamtailor, id: career}
+
+  # --- Pinpoint ---
+  - {name: Pinpoint, source: pinpoint, id: workwithus}

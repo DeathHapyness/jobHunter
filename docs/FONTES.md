@@ -5,16 +5,16 @@ Legenda: **ok** funciona e tem teste · **frágil** funciona, mas depende de end
 | Fonte | Tipo | Status | Identificador (`id` / `params`) | Observações |
 |---|---|---|---|---|
 | Greenhouse | ATS público | ok | `id`: token do board (`boards.greenhouse.io/<token>`) | Job Board API pública com `content=true`. Leitura em streaming. |
-| Lever | ATS público | pendente | | Fase 2 |
-| Ashby | ATS público | pendente | | Fase 2 |
-| Workable | ATS público | pendente | | Fase 2 |
-| SmartRecruiters | ATS público | pendente | | Fase 2 |
-| Recruitee | ATS público | pendente | | Fase 2 |
-| Personio | ATS público (XML) | pendente | | Fase 2 |
-| Teamtailor | ATS público | pendente | | Fase 2 |
-| BambooHR | ATS público | pendente | | Fase 2 |
-| Breezy HR | ATS público | pendente | | Fase 2 |
-| Pinpoint | ATS público | pendente | | Fase 2 |
+| Lever | ATS público | ok | `id`: slug (`jobs.lever.co/<slug>`); `params.region: eu` para contas EU | API pública `v0/postings?mode=json`, streaming. |
+| Ashby | ATS público | ok | `id`: nome do board (`jobs.ashbyhq.com/<id>`) | Posting API pública; ignora vagas `isListed=false`. |
+| Workable | ATS público | ok | `id`: subdomínio (`apply.workable.com/<id>`) | Widget API `?details=true`. |
+| SmartRecruiters | ATS público | **bloqueada (robots.txt)** | `id`: identificador da empresa (case-sensitive) | Paginação `limit/offset` (máx. `params.max_pages`, padrão 100). Lista não traz descrição. **Desde 2026-11-25 o `robots.txt` de `api.smartrecruiters.com` tem `Disallow: /` para todos exceto LinkedInBot**; o adaptador respeita e não coleta. Empresas ficam com `disabled: true`. |
+| Recruitee | ATS público | ok | `id`: subdomínio (`<id>.recruitee.com`) | `/api/offers/`. |
+| Personio | ATS público (XML) | ok | `id`: subdomínio; `params.domain: jobs.personio.com` para contas .com; `params.language` | Feed XML `/xml`, leitura em streaming. |
+| Teamtailor | ATS público | ok | `id`: subdomínio (`<id>.teamtailor.com`); `params.base_url` para domínio próprio | API oficial exige chave; usa o feed RSS público da página de carreiras (`/jobs.rss`). |
+| BambooHR | ATS público | ok (fixture sintética) | `id`: subdomínio (`<id>.bamboohr.com`) | `/careers/list` (JSON). Nenhuma empresa testada tinha vagas abertas; fixture segue o formato documentado. Subdomínios inexistentes redirecionam (302) para o site da BambooHR → erro. |
+| Breezy HR | ATS público | ok | `id`: subdomínio (`<id>.breezy.hr`) | `/json`. |
+| Pinpoint | ATS público | ok | `id`: subdomínio (`<id>.pinpointhq.com`) | `/postings.json`. Sem data de publicação (usa primeira vez vista). |
 | Gupy | ATS BR | pendente | | Fase 3 |
 | Kenoby | ATS BR | pendente | | Fase 3 — possivelmente descontinuada (adquirida pela Gupy) |
 | Solides | ATS BR | pendente | | Fase 3 |
