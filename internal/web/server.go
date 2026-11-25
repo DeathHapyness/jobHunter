@@ -15,6 +15,7 @@ import (
 	"strings"
 	"time"
 
+	"vagas/internal/collector"
 	"vagas/internal/model"
 	"vagas/internal/store"
 )
@@ -33,10 +34,12 @@ const (
 	pageSize = 50
 )
 
-// Collector é a parte do coletor que a interface usa.
+// Collector é a parte do agendador que a interface usa.
 type Collector interface {
 	Running() bool
 	Trigger() bool
+	Completed() uint64
+	LastSummary() collector.Summary
 }
 
 // Server é o handler HTTP da aplicação.
@@ -66,6 +69,7 @@ func New(s *store.Store, c Collector, log *slog.Logger) (*Server, error) {
 	srv.mux.HandleFunc("POST /jobs/{id}/status", srv.setStatus)
 	srv.mux.HandleFunc("POST /jobs/{id}/notes", srv.setNotes)
 	srv.mux.HandleFunc("POST /collect", srv.collect)
+	srv.mux.HandleFunc("GET /collect/status", srv.collectStatus)
 	srv.mux.HandleFunc("GET /healthz", srv.healthz)
 	return srv, nil
 }
@@ -89,6 +93,7 @@ type pageData struct {
 	Statuses    []store.SourceStatus
 	LastVisit   time.Time
 	Collecting  bool
+	Completed   uint64
 	Levels      []option
 	Areas       []option
 	Remotes     []option
@@ -124,6 +129,9 @@ func (s *Server) index(w http.ResponseWriter, r *http.Request) {
 		Levels:     levelOpts, Areas: areaOpts, Remotes: remoteOpts,
 		StatusOpts: statusOpts, PostedOpts: postedOpts, SortOpts: sortOpts,
 		QueryString: ff.encode(0),
+	}
+	if s.collector != nil {
+		data.Completed = s.collector.Completed()
 	}
 	if ff.Page > 1 {
 		data.PrevURL = "/?" + ff.encode(ff.Page-1)
@@ -223,12 +231,29 @@ func (s *Server) collect(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "coletor indisponível", http.StatusServiceUnavailable)
 		return
 	}
-	msg := "Coleta iniciada. Recarregue em alguns minutos."
-	if !s.collector.Trigger() {
-		msg = "Já existe uma coleta em andamento."
+	// Guarda quantas rodadas já tinham terminado: a disparada agora é a
+	// próxima. Se já havia uma em andamento, acompanha essa.
+	done := s.collector.Completed()
+	s.collector.Trigger()
+	s.render(w, "collect-status", collectStatus{After: done, Running: true})
+}
+
+// collectStatus é consultado a cada 2 s pela página até a coleta terminar;
+// ao terminar, dispara o evento "collected" que recarrega a lista.
+func (s *Server) collectStatus(w http.ResponseWriter, r *http.Request) {
+	after, _ := strconv.ParseUint(r.URL.Query().Get("apos"), 10, 64)
+	if s.collector == nil || s.collector.Completed() <= after {
+		s.render(w, "collect-status", collectStatus{After: after, Running: true})
+		return
 	}
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	template.HTMLEscape(w, []byte(msg))
+	w.Header().Set("HX-Trigger", "collected")
+	s.render(w, "collect-status", collectStatus{After: after, Summary: s.collector.LastSummary()})
+}
+
+type collectStatus struct {
+	After   uint64
+	Running bool
+	Summary collector.Summary
 }
 
 func (s *Server) healthz(w http.ResponseWriter, r *http.Request) {

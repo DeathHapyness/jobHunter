@@ -174,3 +174,10 @@ legend { color: var(--blue); }
 .drop-list .check { display: flex; margin: 0; padding: 1px 2px; }
 .drop-list .check:hover { background: var(--sel); }
 .drop-search { font: inherit; width: 100%; margin-bottom: 4px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); padding: 1px 4px; }
+
+/* status da coleta */
+.collecting { color: var(--amber); }
+.done { color: var(--green); }
+.blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .blink { animation: none; } }

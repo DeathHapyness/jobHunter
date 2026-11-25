@@ -1,0 +1,70 @@
+[
+ {
+  "additionalPlain": "Spotify is an equal opportunity employer. You are welcome at Spotify for who you are, no matter where you come from, what you look like, or what’s playing in your headphones. Our platform is for everyone, and so is our workplace. The more voices we have represented and amplified in our business, the more we will all thrive, contribute, and be forward-thinking! So bring us your personal experience, your perspectives, and your background. It’s in our differences that we will find the power to keep revolutionizing the way the world listens.\n \nAt Spotify, we are passionate about inclusivity and ma",
+  "categories": {
+   "commitment": "Permanent",
+   "department": "Engineering",
+   "location": "Stockholm",
+   "team": "IT and Network Engineering",
+   "allLocations": [
+    "Stockholm"
+   ]
+  },
+  "createdAt": 1791537508142,
+  "descriptionPlain": "",
+  "id": "785989a6-b219-43b1-92d9-750a67054f24",
+  "text": "AV Engineer - Platform",
+  "country": "SE",
+  "workplaceType": "onsite",
+  "openingPlain": "",
+  "descriptionBodyPlain": "",
+  "hostedUrl": "https://jobs.lever.co/spotify/785989a6-b219-43b1-92d9-750a67054f24",
+  "applyUrl": "https://jobs.lever.co/spotify/785989a6-b219-43b1-92d9-750a67054f24/apply"
+ },
+ {
+  "additionalPlain": "The United States base range for this position is 132,948.00–189,927.00 USD, plus equity. The benefits available for this position include health insurance, six-month paid parental leave, 401(k) retirement plan, monthly meal allowance, 23 paid days off, paid flexible holidays, and paid sick leave. These ranges may be modified in the future.\n\n\nSpotify is an equal opportunity employer. You are welcome at Spotify for who you are, no matter where you come from, what you look like, or what’s playing in your headphones. Our platform is for everyone, and so is our workplace. The more voices we have r",
+  "categories": {
+   "commitment": "Permanent",
+   "department": "Engineering",
+   "location": "New York, NY",
+   "team": "Platform",
+   "allLocations": [
+    "New York, NY",
+    "Toronto"
+   ]
+  },
+  "createdAt": 1793899678804,
+  "descriptionPlain": "The Platform team creates the technology that enables Spotify to learn quickly and scale easily, enabling rapid growth in our users and our business around the globe. Spanning many disciplines, we work to make the business work; creating the infrastructure, tooling, frameworks, and capabilities needed to welcome a billion customers.\nWe're looking for a Backend Engineer to join Babka, a team within Spotify's Data Infrastructure organization. Babka powers the analytics behind experiences like Spotify for Artists and Spotify for Creators, helping artists, creators, and music labels explore how th",
+  "id": "ced2c220-6b5c-4e74-8e06-37d50985097c",
+  "text": "Backend Engineer - Data Infrastructure",
+  "country": "US",
+  "workplaceType": "remote",
+  "openingPlain": "",
+  "descriptionBodyPlain": "The Platform team creates the technology that enables Spotify to learn quickly and scale easily, enabling rapid growth in our users and our business around the globe. Spanning many disciplines, we work to make the business work; creating the infrastructure, tooling, frameworks, and capabilities needed to welcome a billion customers.\nWe're looking for a Backend Engineer to join Babka, a team within Spotify's Data Infrastructure organization. Babka powers the analytics behind experiences like Spotify for Artists and Spotify for Creators, helping artists, creators, and music labels explore how th",
+  "hostedUrl": "https://jobs.lever.co/spotify/ced2c220-6b5c-4e74-8e06-37d50985097c",
+  "applyUrl": "https://jobs.lever.co/spotify/ced2c220-6b5c-4e74-8e06-37d50985097c/apply"
+ },
+ {
+  "additionalPlain": "Spotify is an equal opportunity employer. You are welcome at Spotify for who you are, no matter where you come from, what you look like, or what’s playing in your headphones. Our platform is for everyone, and so is our workplace. The more voices we have represented and amplified in our business, the more we will all thrive, contribute, and be forward-thinking! So bring us your personal experience, your perspectives, and your background. It’s in our differences that we will find the power to keep revolutionizing the way the world listens.\n \nAt Spotify, we are passionate about inclusivity and ma",
+  "categories": {
+   "commitment": "Permanent",
+   "department": "Engineering",
+   "location": "Stockholm",
+   "team": "Platform",
+   "allLocations": [
+    "Stockholm",
+    "London"
+   ]
+  },
+  "createdAt": 1790590791162,
+  "descriptionPlain": "Every dataset at Spotify, from the data behind creator royalties to the signals powering recommendations, is registered, published and traced through systems our team builds. We're the source of truth for what data exists at Spotify, where it lives, who owns it, and how it flows from one pipeline to the next.\nThese systems sit on the critical path of the platform. Data teams use them every day to publish and find data, and other platform teams build on them for access, retention, governance and incident response. That means our work is judged on correctness and reliability, because every syste",
+  "id": "186b763a-2a61-4563-8813-ff6b40c9c8a7",
+  "text": "Backend Engineer - Data Platform",
+  "country": "SE",
+  "workplaceType": "hybrid",
+  "openingPlain": "",
+  "descriptionBodyPlain": "Every dataset at Spotify, from the data behind creator royalties to the signals powering recommendations, is registered, published and traced through systems our team builds. We're the source of truth for what data exists at Spotify, where it lives, who owns it, and how it flows from one pipeline to the next.\nThese systems sit on the critical path of the platform. Data teams use them every day to publish and find data, and other platform teams build on them for access, retention, governance and incident response. That means our work is judged on correctness and reliability, because every syste",
+  "hostedUrl": "https://jobs.lever.co/spotify/186b763a-2a61-4563-8813-ff6b40c9c8a7",
+  "applyUrl": "https://jobs.lever.co/spotify/186b763a-2a61-4563-8813-ff6b40c9c8a7/apply"
+ }
+]

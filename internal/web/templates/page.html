@@ -18,7 +18,7 @@
     {{if .Collecting}}coletando…{{else}}▶ coletar agora{{end}}
   </button>
 </header>
-<p id="collect-msg" class="msg" role="status"></p>
+<p id="collect-msg" class="msg" role="status">{{if .Collecting}}{{template "collect-status" (status .Completed)}}{{end}}</p>
 
 <form id="filters" class="filters" action="/" method="get"
       hx-get="/" hx-target="#results" hx-swap="outerHTML" hx-push-url="true"
@@ -94,8 +94,10 @@
 </fieldset>
 {{end}}
 
+{{define "collect-status"}}{{if .Running}}<span class="collecting" hx-get="/collect/status?apos={{.After}}" hx-trigger="every 2s" hx-swap="outerHTML">coletando<span class="blink">_</span></span>{{else}}<span class="done">✓ coleta concluída: {{.Summary.New}} vaga{{if ne .Summary.New 1}}s{{end}} nova{{if ne .Summary.New 1}}s{{end}}{{if .Summary.Failed}} · {{.Summary.Failed}} falha(s){{end}}</span>{{end}}{{end}}
+
 {{define "results"}}
-<main id="results">
+<main id="results" hx-get="/" hx-include="#filters" hx-trigger="collected from:body" hx-target="this" hx-swap="outerHTML">
   <p class="summary">
     <b>{{.Total}}</b> vaga{{if ne .Total 1}}s{{end}}
     {{if .Filter.Active}}· <a href="/">limpar</a> · <a href="/?{{.QueryString}}" title="Copie para salvar este filtro">link do filtro</a>{{end}}

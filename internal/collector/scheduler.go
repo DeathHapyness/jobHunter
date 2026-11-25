@@ -3,6 +3,8 @@ package collector
 import (
 	"context"
 	"errors"
+	"sync"
+	"sync/atomic"
 	"time"
 
 	"vagas/internal/config"
@@ -17,7 +19,21 @@ type Scheduler struct {
 	// exija reiniciar o app.
 	Companies func() ([]config.Company, error)
 
-	trigger chan struct{}
+	trigger   chan struct{}
+	completed atomic.Uint64
+	mu        sync.Mutex
+	last      Summary
+}
+
+// Completed devolve quantas rodadas já terminaram (para a interface saber
+// quando uma coleta disparada acabou).
+func (s *Scheduler) Completed() uint64 { return s.completed.Load() }
+
+// LastSummary devolve o resumo da última rodada concluída.
+func (s *Scheduler) LastSummary() Summary {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.last
 }
 
 // NewScheduler cria um agendador.
@@ -65,9 +81,18 @@ func (s *Scheduler) once(ctx context.Context) {
 	companies, err := s.Companies()
 	if err != nil {
 		s.Collector.Log.Error("falha ao ler empresas", "erro", err)
+		s.completed.Add(1) // libera a interface que aguarda o fim da rodada
 		return
 	}
-	if _, err := s.Collector.RunAll(ctx, companies); err != nil && !errors.Is(err, context.Canceled) {
+	sum, err := s.Collector.RunAll(ctx, companies)
+	if err != nil && !errors.Is(err, context.Canceled) {
 		s.Collector.Log.Error("coleta", "erro", err)
 	}
+	if errors.Is(err, ErrAlreadyRunning) {
+		return
+	}
+	s.mu.Lock()
+	s.last = sum
+	s.mu.Unlock()
+	s.completed.Add(1)
 }

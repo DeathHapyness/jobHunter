@@ -52,6 +52,8 @@ var funcs = template.FuncMap{
 	},
 	"ago":   ago,
 	"lower": strings.ToLower,
+	// status cria o estado "coletando" para uma coleta já em andamento ao abrir a página.
+	"status": func(completed uint64) collectStatus { return collectStatus{Running: true, After: completed} },
 	// opts transforma valores de faceta em opções (valor = rótulo).
 	"opts": func(vals []string) []option {
 		out := make([]option, len(vals))

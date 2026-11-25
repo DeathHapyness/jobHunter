@@ -13,14 +13,20 @@ import (
 	"testing"
 	"time"
 
+	"vagas/internal/collector"
 	"vagas/internal/model"
 	"vagas/internal/store"
 )
 
-type fakeCollector struct{ triggered bool }
+type fakeCollector struct {
+	triggered bool
+	completed uint64
+}
 
-func (f *fakeCollector) Running() bool { return false }
-func (f *fakeCollector) Trigger() bool { f.triggered = true; return true }
+func (f *fakeCollector) Running() bool                  { return false }
+func (f *fakeCollector) Trigger() bool                  { f.triggered = true; return true }
+func (f *fakeCollector) Completed() uint64              { return f.completed }
+func (f *fakeCollector) LastSummary() collector.Summary { return collector.Summary{New: 7} }
 
 func setup(t *testing.T) (*Server, *store.Store) {
 	t.Helper()
@@ -172,5 +178,28 @@ func TestIsNewRespectsAge(t *testing.T) {
 	f := parseFilter(mustParse(t, "novas=1")).toStore(now, time.Time{})
 	if f.PostedSince.IsZero() || now.Sub(f.PostedSince) > newWindow+time.Second {
 		t.Fatalf("novas filter must cap age: %v", f.PostedSince)
+	}
+}
+
+func TestCollectPollsUntilDone(t *testing.T) {
+	st, _ := store.Open(filepath.Join(t.TempDir(), "c.db"))
+	defer st.Close()
+	fc := &fakeCollector{completed: 3}
+	srv, err := New(st, fc, slog.New(slog.NewTextHandler(io.Discard, nil)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rec := httptest.NewRecorder()
+	srv.ServeHTTP(rec, httptest.NewRequest(http.MethodPost, "/collect", nil))
+	if !fc.triggered || !strings.Contains(rec.Body.String(), "/collect/status?apos=3") {
+		t.Fatalf("collect should start polling: %s", rec.Body)
+	}
+	if rec := get(t, srv, "/collect/status?apos=3", true); rec.Header().Get("HX-Trigger") != "" {
+		t.Fatal("not finished yet")
+	}
+	fc.completed = 4
+	rec = get(t, srv, "/collect/status?apos=3", true)
+	if rec.Header().Get("HX-Trigger") != "collected" || !strings.Contains(rec.Body.String(), "7 vagas novas") {
+		t.Fatalf("finished status wrong: %v %s", rec.Header(), rec.Body)
 	}
 }

@@ -44,6 +44,7 @@ type Summary struct {
 	Companies int
 	Failed    int
 	Jobs      int
+	New       int // vagas vistas pela primeira vez nesta rodada
 	Closed    int64
 	Duration  time.Duration
 }
@@ -91,8 +92,11 @@ func (c *Collector) RunAll(ctx context.Context, companies []config.Company) (Sum
 	}
 	wg.Wait()
 	sum.Duration = c.now().Sub(start)
+	if n, err := c.Store.CountFirstSeenSince(context.WithoutCancel(ctx), start); err == nil {
+		sum.New = n
+	}
 	c.Log.Info("coleta concluída", "empresas", sum.Companies, "falhas", sum.Failed,
-		"vagas", sum.Jobs, "fechadas", sum.Closed, "duração", sum.Duration.Round(time.Millisecond))
+		"vagas", sum.Jobs, "novas", sum.New, "fechadas", sum.Closed, "duração", sum.Duration.Round(time.Millisecond))
 	return sum, nil
 }
 

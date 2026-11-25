@@ -1,0 +1,293 @@
+{
+ "offset": 0,
+ "limit": 100,
+ "totalFound": 3,
+ "content": [
+  {
+   "id": "744000163765319",
+   "name": "Hardware Project Leader",
+   "uuid": "510c939c-58be-4e71-af5e-b66c61597365",
+   "jobAdId": "ef62f5e5-03d3-4d42-8b2b-7a8862c10895",
+   "defaultJobAd": true,
+   "refNumber": "REF301201F",
+   "company": {
+    "identifier": "BoschGroup",
+    "name": "Bosch Group"
+   },
+   "releasedDate": "2026-11-25T21:36:37.304Z",
+   "location": {
+    "city": "Guadalajara",
+    "region": "Jal.",
+    "country": "mx",
+    "address": "Avenida Ignacio L Vallarta 3090",
+    "postalCode": "44690",
+    "remote": false,
+    "hybrid": true,
+    "hybridDescription": "On-site attendance: 60% of the weekly working schedule",
+    "latitude": "20.6752737",
+    "longitude": "-103.3929652",
+    "fullLocation": "Guadalajara, Jal., Mexico"
+   },
+   "industry": {
+    "id": "automotive",
+    "label": "Automotive"
+   },
+   "department": {},
+   "function": {
+    "id": "engineering",
+    "label": "Engineering"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "associate",
+    "label": "Associate"
+   },
+   "customField": [
+    {
+     "fieldId": "5abe2a4ab60a5e486a2d9b1d",
+     "fieldLabel": "Contract type",
+     "valueId": "1e46492b-d24f-460c-b095-38cf08a778d8",
+     "valueLabel": "Unlimited"
+    },
+    {
+     "fieldId": "5abe28e96d8bc56863dd9746",
+     "fieldLabel": "Tariff Area",
+     "valueId": "540ff3f7-a953-4856-97e3-f2202d80c57c",
+     "valueLabel": "Mexico Local Grades"
+    },
+    {
+     "fieldId": "586a997ee4b05fd937b86098",
+     "fieldLabel": "Legal Entity(acronym)",
+     "valueId": "RBMX",
+     "valueLabel": "RBMX"
+    },
+    {
+     "fieldId": "586a99b5e4b0daa006ae1079",
+     "fieldLabel": "Working Location",
+     "valueId": "Guadalajara",
+     "valueLabel": "Guadalajara"
+    },
+    {
+     "fieldId": "5abe295a6d8bc56863dd9747",
+     "fieldLabel": "Global Salary Level",
+     "valueId": "427b1359-5057-4375-a2ae-6c649782296d",
+     "valueLabel": "Experienced/ Middle Tariff"
+    },
+    {
+     "fieldId": "69ca83a2489188782a1e9f87",
+     "fieldLabel": "Direct Or Indirect",
+     "valueId": "1aefbf4c-c10a-422e-a975-a504a7117792",
+     "valueLabel": "Indirect"
+    },
+    {
+     "fieldId": "5abe29f9b60a5e486a2d9b1c",
+     "fieldLabel": "Working hours",
+     "valueId": "60756b3e-dbab-4353-ac3a-0064d2bb27d8",
+     "valueLabel": "Full-time"
+    },
+    {
+     "fieldId": "586a9995e4b0daa006ae1078",
+     "fieldLabel": "Legal Entity",
+     "valueId": "Robert Bosch México, S.A. de C.V.",
+     "valueLabel": "Robert Bosch Mexico S.A. de C.V."
+    },
+    {
+     "fieldId": "691cf1c93001c782b9560ab7",
+     "fieldLabel": "Division full name",
+     "valueId": "2c84b9fd-f59a-4d8f-8666-3d3e8b6d5cef",
+     "valueLabel": "BGSW"
+    },
+    {
+     "fieldId": "5abe27936d8bc56863dd9745",
+     "fieldLabel": "Position type",
+     "valueId": "c7b4da31-6f38-405a-b2e8-08a76e3c3f2c",
+     "valueLabel": "Professional"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "mx",
+     "valueLabel": "Mexico"
+    },
+    {
+     "fieldId": "586a971ee4b0daa006ae1077",
+     "fieldLabel": "Brands",
+     "valueId": "default",
+     "valueLabel": "Bosch Group"
+    },
+    {
+     "fieldId": "586a996ce4b05fd937b86097",
+     "fieldLabel": "Working Country",
+     "valueId": "MX",
+     "valueLabel": "Mexico"
+    },
+    {
+     "fieldId": "586a9b22e4b05fd937b8609a",
+     "fieldLabel": "Local Grade",
+     "valueId": "MX_E3",
+     "valueLabel": "MX_E3"
+    },
+    {
+     "fieldId": "586a99a5e4b05fd937b86099",
+     "fieldLabel": "Division",
+     "valueId": "RBEI",
+     "valueLabel": "BGSW"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000163765319",
+   "creator": {
+    "name": "DIANA DE LA MORA (BGSW/HRL-TA-MX)"
+   },
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000163759769",
+   "name": "Warehouse Team Lead (1st Shift)",
+   "uuid": "815e53ea-44df-442e-a19b-7767367d362e",
+   "jobAdId": "71ad55c3-399c-4b14-9bd2-1be6ec14df83",
+   "defaultJobAd": true,
+   "refNumber": "REF299866W",
+   "company": {
+    "identifier": "BoschGroup",
+    "name": "Bosch Group"
+   },
+   "releasedDate": "2026-11-25T20:22:30.756Z",
+   "location": {
+    "city": "West Memphis",
+    "region": "AR",
+    "country": "us",
+    "address": "2700 College Boulevard",
+    "postalCode": "72301",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "35.1748368",
+    "longitude": "-90.2263164",
+    "fullLocation": "West Memphis, AR, United States"
+   },
+   "industry": {
+    "id": "warehousing",
+    "label": "Warehousing"
+   },
+   "department": {},
+   "function": {
+    "id": "distribution",
+    "label": "Distribution"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "entry_level",
+    "label": "Entry Level"
+   },
+   "customField": [
+    {
+     "fieldId": "5abe2a4ab60a5e486a2d9b1d",
+     "fieldLabel": "Contract type",
+     "valueId": "1e46492b-d24f-460c-b095-38cf08a778d8",
+     "valueLabel": "Unlimited"
+    },
+    {
+     "fieldId": "5abe28e96d8bc56863dd9746",
+     "fieldLabel": "Tariff Area",
+     "valueId": "82f1dd4b-de9d-4134-9f1a-8d315be380ae",
+     "valueLabel": "United States Local Grades"
+    },
+    {
+     "fieldId": "586a997ee4b05fd937b86098",
+     "fieldLabel": "Legal Entity(acronym)",
+     "valueId": "PTNA",
+     "valueLabel": "PTNA"
+    },
+    {
+     "fieldId": "586a99b5e4b0daa006ae1079",
+     "fieldLabel": "Working Location",
+     "valueId": "West Memphis, AR",
+     "valueLabel": "West Memphis, AR"
+    },
+    {
+     "fieldId": "5abe295a6d8bc56863dd9747",
+     "fieldLabel": "Global Salary Level",
+     "valueId": "4319a4d2-6690-4a34-ac0f-9d8c126f1af2",
+     "valueLabel": "Junior/ Lower Tariff"
+    },
+    {
+     "fieldId": "69ca83a2489188782a1e9f87",
+     "fieldLabel": "Direct Or Indirect",
+     "valueId": "0d8b2ae9-fc67-447b-9165-201f59f71e90",
+     "valueLabel": "Direct"
+    },
+    {
+     "fieldId": "5abe29f9b60a5e486a2d9b1c",
+     "fieldLabel": "Working hours",
+     "valueId": "ff7c69f3-f89c-498c-9a0e-25f4dad301d4",
+     "valueLabel": "Full-time and/or part-time"
+    },
+    {
+     "fieldId": "586a9995e4b0daa006ae1078",
+     "fieldLabel": "Legal Entity",
+     "valueId": "Robert Bosch Tool Corporation",
+     "valueLabel": "Robert Bosch Tool Corporation"
+    },
+    {
+     "fieldId": "691cf1c93001c782b9560ab7",
+     "fieldLabel": "Division full name",
+     "valueId": "d46bc602-375e-4c5b-8773-170f49339203",
+     "valueLabel": "Power Tools"
+    },
+    {
+     "fieldId": "5abe27936d8bc56863dd9745",
+     "fieldLabel": "Position type",
+     "valueId": "e1a146c4-6212-4f0d-b2f6-060dd801354f",
+     "valueLabel": "Blue-collar workers"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "us",
+     "valueLabel": "United States"
+    },
+    {
+     "fieldId": "586a971ee4b0daa006ae1077",
+     "fieldLabel": "Brands",
+     "valueId": "default",
+     "valueLabel": "Bosch Group"
+    },
+    {
+     "fieldId": "586a996ce4b05fd937b86097",
+     "fieldLabel": "Working Country",
+     "valueId": "US",
+     "valueLabel": "United States"
+    },
+    {
+     "fieldId": "586a9b22e4b05fd937b8609a",
+     "fieldLabel": "Local Grade",
+     "valueId": "US_HOURLYRR",
+     "valueLabel": "US_HOURLYRR"
+    },
+    {
+     "fieldId": "586a99a5e4b05fd937b86099",
+     "fieldLabel": "Division",
+     "valueId": "PT",
+     "valueLabel": "PT"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000163759769",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}

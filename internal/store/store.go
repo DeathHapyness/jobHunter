@@ -149,6 +149,14 @@ func (s *Store) CloseMissing(ctx context.Context, source, company string, runSta
 	return res.RowsAffected()
 }
 
+// CountFirstSeenSince conta vagas abertas vistas pela primeira vez a partir de t.
+func (s *Store) CountFirstSeenSince(ctx context.Context, t time.Time) (int, error) {
+	var n int
+	err := s.db.QueryRowContext(ctx,
+		"SELECT COUNT(*) FROM jobs WHERE closed_at IS NULL AND first_seen >= ?", t.Unix()).Scan(&n)
+	return n, err
+}
+
 // Run é o registro de uma coleta de uma empresa em uma fonte.
 type Run struct {
 	Source     string

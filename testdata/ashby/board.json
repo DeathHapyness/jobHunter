@@ -1,0 +1,283 @@
+{
+ "apiVersion": "1",
+ "jobs": [
+  {
+   "id": "c7d59014-b918-4c15-ae33-79f5c9f2cf9f",
+   "title": "Full-Stack Engineer (Backend Leaning)",
+   "department": "Engineering & Product",
+   "team": "Agents - Voice Experience",
+   "employmentType": "FullTime",
+   "location": "United Kingdom",
+   "secondaryLocations": [
+    {
+     "location": "Dublin",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Ireland",
+       "addressLocality": "Dublin"
+      }
+     }
+    },
+    {
+     "location": "United States",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "United States"
+      }
+     }
+    },
+    {
+     "location": "New York",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "New York",
+       "addressCountry": "United States",
+       "addressLocality": "New York City"
+      }
+     }
+    },
+    {
+     "location": "Sofia",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Bulgaria",
+       "addressLocality": "Bulgaria"
+      }
+     }
+    },
+    {
+     "location": "Germany",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Germany"
+      }
+     }
+    },
+    {
+     "location": "Portugal",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Portugal"
+      }
+     }
+    },
+    {
+     "location": "Poland",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Poland",
+       "addressCountry": "Poland",
+       "addressLocality": "Warsaw"
+      }
+     }
+    },
+    {
+     "location": "Poland",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Poland"
+      }
+     }
+    },
+    {
+     "location": "Madrid",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Spain",
+       "addressCountry": "Spain",
+       "addressLocality": "Madrid"
+      }
+     }
+    },
+    {
+     "location": "Boston",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Massachusetts",
+       "addressCountry": "United States",
+       "addressLocality": "Boston"
+      }
+     }
+    },
+    {
+     "location": "Amsterdam",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Netherlands"
+      }
+     }
+    },
+    {
+     "location": "Bulgaria",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Bulgaria"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2026-10-07T19:11:45.370+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressCountry": "United Kingdom"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/ElevenLabs/c7d59014-b918-4c15-ae33-79f5c9f2cf9f",
+   "applyUrl": "https://jobs.ashbyhq.com/ElevenLabs/c7d59014-b918-4c15-ae33-79f5c9f2cf9f/application",
+   "descriptionPlain": "ABOUT ELEVENLABS\n\nElevenLabs is an AI research and product company transforming how we interact with technology.\n\nWe launched in January 2023 with the first human-like AI voice model. Today, we serve millions of users and thousands of businesses - from fast-growing startups to large enterprises like Deutsche Telekom and Meta. Our investors are some of the world's most prominent, including Andreessen Horowitz, ICONIQ Growth and Sequoia. We've raised $781M in funding and our last valuation was $22B - multiples of 11, always.\n\nWe have expanded from voice into three main platforms:\n\n - ElevenAgent"
+  },
+  {
+   "id": "6c4c57c1-ec72-42ba-af3a-eb7aebbde2e6",
+   "title": "Forward Deployed Engineer - Software Engineer - USA",
+   "department": "Engineering & Product",
+   "team": "Enterprise - Field Engineering",
+   "employmentType": "FullTime",
+   "location": "San Francisco",
+   "secondaryLocations": [
+    {
+     "location": "United States",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "United States"
+      }
+     }
+    },
+    {
+     "location": "New York",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "New York",
+       "addressCountry": "United States",
+       "addressLocality": "New York City"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2026-10-14T01:20:28.144+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "California",
+     "addressCountry": "United States",
+     "addressLocality": "San Francisco"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/ElevenLabs/6c4c57c1-ec72-42ba-af3a-eb7aebbde2e6",
+   "applyUrl": "https://jobs.ashbyhq.com/ElevenLabs/6c4c57c1-ec72-42ba-af3a-eb7aebbde2e6/application",
+   "descriptionPlain": "ABOUT ELEVENLABS\n\nElevenLabs is an AI research and product company transforming how we interact with technology.\n\nWe launched in January 2023 with the first human-like AI voice model. Today, we serve millions of users and thousands of businesses - from fast-growing startups to large enterprises like Deutsche Telekom and Meta. Our investors are some of the world's most prominent, including Andreessen Horowitz, ICONIQ Growth and Sequoia. We've raised $781M in funding and our last valuation was $22B - multiples of 11, always.\n\nWe have expanded from voice into three main platforms:\n\n - ElevenAgent"
+  },
+  {
+   "id": "6a530871-b6c6-4783-ac6b-69cc3b084192",
+   "title": "Full-Stack Engineer",
+   "department": "Engineering & Product",
+   "team": "Agents - Core",
+   "employmentType": "FullTime",
+   "location": "United Kingdom",
+   "secondaryLocations": [
+    {
+     "location": "Dublin",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Ireland",
+       "addressLocality": "Dublin"
+      }
+     }
+    },
+    {
+     "location": "Spain",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Spain"
+      }
+     }
+    },
+    {
+     "location": "United States",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "United States"
+      }
+     }
+    },
+    {
+     "location": "New York",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "New York",
+       "addressCountry": "United States",
+       "addressLocality": "New York City"
+      }
+     }
+    },
+    {
+     "location": "Sofia",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Bulgaria",
+       "addressLocality": "Bulgaria"
+      }
+     }
+    },
+    {
+     "location": "Germany",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Germany"
+      }
+     }
+    },
+    {
+     "location": "Poland",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Poland"
+      }
+     }
+    },
+    {
+     "location": "Boston",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Massachusetts",
+       "addressCountry": "United States",
+       "addressLocality": "Boston"
+      }
+     }
+    },
+    {
+     "location": "Amsterdam",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Netherlands"
+      }
+     }
+    },
+    {
+     "location": "Bulgaria",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Bulgaria"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2024-09-06T13:39:52.200+00:00",
+   "isListed": false,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressCountry": "United Kingdom"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/ElevenLabs/6a530871-b6c6-4783-ac6b-69cc3b084192",
+   "applyUrl": "https://jobs.ashbyhq.com/ElevenLabs/6a530871-b6c6-4783-ac6b-69cc3b084192/application",
+   "descriptionPlain": "ABOUT ELEVENLABS\n\nElevenLabs is an AI research and product company transforming how we interact with technology.\n\nWe launched in January 2023 with the first human-like AI voice model. Today, we serve millions of users and thousands of businesses - from fast-growing startups to large enterprises like Deutsche Telekom and Meta. Our investors are some of the world's most prominent, including Andreessen Horowitz, ICONIQ Growth and Sequoia. We've raised $781M in funding and our last valuation was $22B - multiples of 11, always.\n\nWe have expanded from voice into three main platforms:\n\n - ElevenAgent"
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "data": [
+  {
+   "id": "591998",
+   "benefits": "<div><!--block-->We want Pinpoint to be the best place you've ever worked, somewhere you feel valued, supported and excited to grow. Here's what you get:</div><ul><li><!--block--><strong>Comprehensive healthcare:</strong> excellent medical, dental and vision coverage for you and your family</li><li><!--block--><strong>Unlimited holidays:</strong> take the time you need to rest and recharge</li><li><!--block--><strong>Mental health support:</strong> unlimited, immediate access to professional counselling via Spill</li><li><!--block--><strong>Retirement contributions:</strong> 401k or pension co",
+   "benefits_header": "What we offer",
+   "compensation": null,
+   "compensation_minimum": null,
+   "compensation_maximum": null,
+   "compensation_currency": null,
+   "compensation_frequency": null,
+   "compensation_visible": false,
+   "deadline_at": null,
+   "description": "<div><!--block-->Hi 👋 I'm Elvin, Head of Design at Pinpoint.<br><br>We build and sell software that helps in house recruitment teams attract, hire and onboard the right people. We're a team of about 100 across the UK, EU and US, with a mature product, strong product market fit and happy customers.<br><br>Inside Pinpoint sits a part of the product most ATSs don't have: background checks, right to work, reference checks, one way video interviews and the credits and billing that power them. We call it Marketplace. It's the squad behind the revenue that scales with how much customers use us, and a",
+   "employment_type": "full_time",
+   "employment_type_text": "Full Time",
+   "key_responsibilities": "<ul><li><!--block-->Own design for every usage based feature in Pinpoint end to end, from the first conversation with a vendor or customer through the spec and the design to shipped and measured</li><li><!--block-->Ship the next phase of Pinpoint Checks, including the DBS update service with automated routing, rechecks, sending check data to downstream systems, decision and audit flows, and the UK high compliance checks that follow</li><li><!--block-->Turn credits from something customers are given into something they understand and use. Credit visibility, self serve costing and in platform cr",
+   "key_responsibilities_header": "What you'll do",
+   "reporting_to": "Head of Design",
+   "skills_knowledge_expertise": "<ul><li><!--block-->Design of complex B2B software products alongside a PM and engineers, with shipped work to show for it, ideally as the sole or lead designer</li><li><!--block-->A startup or scale up background, with small teams, few handoffs and a willingness to do whatever the product needs that week</li><li><!--block-->Hands on work designing around constraints set by someone else, such as a regulator, a compliance rule or a third party vendor's API. Background screening, identity, fintech, payments, insurance and legal are the obvious homes for it, and comparable complexity elsewhere co",
+   "skills_knowledge_expertise_header": "What you'll bring",
+   "title": "Staff Product Designer",
+   "url": "https://workwithus.pinpointhq.com/en/postings/fa79e602-e5a1-4ee7-9cee-3bb2a13eb20a",
+   "path": "/en/postings/fa79e602-e5a1-4ee7-9cee-3bb2a13eb20a",
+   "workplace_type": "remote",
+   "workplace_type_text": "Fully remote",
+   "job": {
+    "id": "592098",
+    "requisition_id": "PIN-0412",
+    "department": {
+     "id": "1032",
+     "name": "Design"
+    },
+    "division": null,
+    "structure_custom_group_one": null
+   },
+   "location": {
+    "id": "283",
+    "city": "London",
+    "name": "Remote",
+    "postal_code": null,
+    "province": "London",
+    "street_address": null
+   }
+  },
+  {
+   "id": "604756",
+   "benefits": "<div><!--block-->We want Pinpoint to be the best place you've ever worked, somewhere you feel valued, supported and excited to grow. Here's what you get:</div><ul><li><!--block--><strong>Comprehensive healthcare:</strong> excellent medical, dental and vision coverage for you and your family</li><li><!--block--><strong>Unlimited holidays:</strong> take the time you need to rest and recharge</li><li><!--block--><strong>Mental health support:</strong> unlimited, immediate access to professional counselling via Spill</li><li><!--block--><strong>Retirement contributions:</strong> 401k or pension co",
+   "benefits_header": "What we offer",
+   "compensation": null,
+   "compensation_minimum": null,
+   "compensation_maximum": null,
+   "compensation_currency": null,
+   "compensation_frequency": null,
+   "compensation_visible": false,
+   "deadline_at": null,
+   "description": "<div><!--block-->Hi 👋 I'm Emily, Director of Growth Marketing at Pinpoint.<br><br>We build and sell software that helps in house recruitment teams attract, hire and onboard the right people. We're a team of about 100 across the UK, EU and US, with a mature product, strong product market fit and happy customers.<br><br>Pinpoint ships fast. Our product team releases new features every few weeks, and some of them change how we talk about the whole product. That pace is one of our biggest advantages, but only if customers, prospects, and our own team actually hear about it. Today most launches get",
+   "employment_type": "full_time",
+   "employment_type_text": "Full Time",
+   "key_responsibilities": "<ul><li><!--block-->Own how we position every significant feature, from what it's called and who it's for to how it compares, then bring a clear recommendation to Product and leadership, make the call, and keep it consistent everywhere it shows up</li><li><!--block-->Translate what we ship into the results customers get, tying features together to show what's possible, backed by proof points and customer stories</li><li><!--block-->Sit close enough to Product that nothing is ever released as a surprise. Live in the roadmap in Fibery, read the specs and early designs, keep dates honest with pro",
+   "key_responsibilities_header": "What you'll do",
+   "reporting_to": "Director of Growth Marketing",
+   "skills_knowledge_expertise": "<ul><li><!--block-->Product marketing in B2B SaaS, with features positioned and launched end to end and the work to show for it</li><li><!--block-->A track record of running launches across product, content, sales and customer marketing, with briefs that come back right first time</li><li><!--block-->Technical depth to get into how the product works and explain it simply to any audience</li><li><!--block-->Time in a startup or scale up, with small teams, few handoffs and the drive to deliver without hand holding</li><li><!--block-->Strategy and making in the same day, from positioning in the m",
+   "skills_knowledge_expertise_header": "What you'll bring",
+   "title": "Senior Product Marketing Manager",
+   "url": "https://workwithus.pinpointhq.com/en/postings/207471c2-3297-4f76-8307-6ec844b20760",
+   "path": "/en/postings/207471c2-3297-4f76-8307-6ec844b20760",
+   "workplace_type": "remote",
+   "workplace_type_text": "Fully remote",
+   "job": {
+    "id": "604115",
+    "requisition_id": "PIN-0414",
+    "department": {
+     "id": "191",
+     "name": "Marketing"
+    },
+    "division": null,
+    "structure_custom_group_one": null
+   },
+   "location": {
+    "id": "5495",
+    "city": "London",
+    "name": "United Kingdom",
+    "postal_code": "",
+    "province": "London",
+    "street_address": ""
+   }
+  }
+ ]
+}

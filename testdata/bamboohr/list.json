@@ -1,0 +1,43 @@
+{
+ "meta": {
+  "totalCount": 2
+ },
+ "result": [
+  {
+   "id": "42",
+   "jobOpeningName": "DevOps Engineer",
+   "departmentId": "1",
+   "departmentLabel": "Engineering",
+   "employmentStatusLabel": "Full-Time",
+   "location": {
+    "city": "Curitiba",
+    "state": "PR"
+   },
+   "atsLocation": {
+    "country": "Brazil",
+    "state": "PR",
+    "province": null,
+    "city": "Curitiba"
+   },
+   "isRemote": null,
+   "locationType": "2"
+  },
+  {
+   "id": 43,
+   "jobOpeningName": "IT Support Intern",
+   "departmentLabel": "IT",
+   "employmentStatusLabel": "Internship",
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "United States",
+    "state": "Utah",
+    "city": "Lindon"
+   },
+   "isRemote": true,
+   "locationType": "1"
+  }
+ ]
+}
