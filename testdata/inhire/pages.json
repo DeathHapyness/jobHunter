@@ -1,0 +1,51 @@
+{
+ "tenantName": "Cora",
+ "about": "<p>Das 21 milh&otilde;es de empresas do Brasil, 93% s&atilde;o pequenos e m&eacute;dios neg&oacute;c",
+ "background": [
+  "https://files.inhire.app/pages/career/banner_cora.png"
+ ],
+ "bannerTitle": "",
+ "bannerTitleColor": "#e6e6e6",
+ "logo": "https://files.inhire.app/pages/career/logo_cora.png",
+ "visibility": "external",
+ "openGraph": {
+  "title": "Vagas Cora",
+  "description": "Vem fazer parte do time Cora!",
+  "image": "https://files.inhire.app/og-images/cora.png"
+ },
+ "jobsPage": [
+  {
+   "careerPageIds": [
+    "default"
+   ],
+   "careerPageId": "default",
+   "displayName": " Analista de Aquisição e Performance Sr - (Adquirência)",
+   "jobId": "b9488059-c6ae-4196-841e-70ac324f4b19",
+   "status": "published",
+   "workplaceType": "Remote",
+   "location": "BR"
+  },
+  {
+   "careerPageId": "default",
+   "careerPageIds": [
+    "default"
+   ],
+   "displayName": "Analista Tributário Júnior | Preferencial para Pessoas com Deficiência (PcD)",
+   "jobId": "5722278d-7612-4741-876a-92a2ea2fdbed",
+   "status": "published",
+   "workplaceType": "Remote",
+   "location": "BR"
+  },
+  {
+   "careerPageId": "default",
+   "careerPageIds": [
+    "default"
+   ],
+   "displayName": "Analista de Performance e Rentabilidade de Crédito Sênior",
+   "jobId": "06874408-5baa-461e-b3c3-76b4ea23b27f",
+   "status": "published",
+   "workplaceType": "Remote",
+   "location": "BR"
+  }
+ ]
+}

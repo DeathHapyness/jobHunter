@@ -1,0 +1,288 @@
+{
+ "success": true,
+ "errors": [],
+ "data": {
+  "totalPages": 2,
+  "currentPage": 2,
+  "count": 14,
+  "data": [
+   {
+    "killerQuestions": [],
+    "id": 931067,
+    "title": "PRODUCT MANAGER PL",
+    "description": "<p>A Sólides é a HR Tech líder no Brasil em Gestão Integrada de Pessoas com Inteligência Comportamental. Nossa plataforma é #completadeverdade: unimos tudo o que o RH e o DP precisam em um só lugar para transformar a realidade das PMEs.<br /><br /><strong>O nosso tamanho em números:</strong><br /><br />- R$ 530 milhões no maior aporte já feito em uma HR Tech na América Latina.<br />- +55 mil clientes e +8 milhões de pessoas impactadas.<br />- Aquisições das empresas Tangerino, RHGestor e Folha D",
+    "currentState": "em_andamento",
+    "referenceId": 2817,
+    "companyName": "Sólides Tecnologia",
+    "companyLogo": "https://c5gwmsmjx1.execute-api.us-east-1.amazonaws.com/prod/empresa/logo/2817/Logo_Solides_Color_285x70.png",
+    "state": {
+     "id": 17,
+     "name": "Minas Gerais",
+     "code": "MG"
+    },
+    "city": {
+     "id": 2310,
+     "name": "Belo Horizonte",
+     "state_id": 17
+    },
+    "address": {
+     "id": 110579732,
+     "zip_code": "30140-136",
+     "street_address": "Rua Tomé de Souza",
+     "neighborhood": "Savassi",
+     "foreign_city": null,
+     "foreign_state": null,
+     "number": "845",
+     "latitude": null,
+     "longitude": null,
+     "additional_information": "2º Andar",
+     "city": {
+      "id": 2310,
+      "name": "Belo Horizonte",
+      "state_id": 17
+     },
+     "state": {
+      "id": 17,
+      "name": "Minas Gerais",
+      "code": "MG"
+     },
+     "country": {
+      "id": 30,
+      "name": "Brasil",
+      "code": "BR"
+     }
+    },
+    "slug": "solides",
+    "redirectLink": "https://solides./vacancies/931067?origem=portal",
+    "type": "mista",
+    "isHiddenJob": false,
+    "homeOffice": false,
+    "jobType": "hibrido",
+    "openPositions": 1,
+    "salary": {
+     "type": "simple",
+     "showRangeToApplicant": false,
+     "initialRange": null,
+     "finalRange": null,
+     "negotiable": false
+    },
+    "hasSpecialNeeds": false,
+    "peopleWithDisabilities": true,
+    "disabilityType": null,
+    "pcdOnly": false,
+    "videoUrl": null,
+    "seniority": [
+     {
+      "id": 5,
+      "name": "Pleno",
+      "level": null,
+      "show": true
+     }
+    ],
+    "recruitmentContractType": [
+     {
+      "id": 10,
+      "name": "CLT",
+      "level": null,
+      "show": true
+     }
+    ],
+    "benefits": [],
+    "language": [],
+    "hardSkills": [],
+    "education": [
+     {
+      "id": 45,
+      "name": "Graduação",
+      "level": null,
+      "show": true
+     },
+     {
+      "id": 46,
+      "name": "Tecnólogo",
+      "level": null,
+      "show": true
+     },
+     {
+      "id": 47,
+      "name": "Pós Graduação",
+      "level": null,
+      "show": true
+     }
+    ],
+    "createdAt": "2026-09-30",
+    "availablePositions": 1,
+    "affirmative": [],
+    "occupationAreas": [
+     {
+      "id": 349584,
+      "name": "Tecnologia",
+      "level": null,
+      "show": true
+     },
+     {
+      "id": 349594,
+      "name": "Recursos Humanos",
+      "level": null,
+      "show": true
+     }
+    ],
+    "isGoogleForJobsEnabled": true,
+    "requiredFields": [
+     "professionalExperiences",
+     "academicEducations",
+     "linkedin",
+     "salary",
+     "indentify",
+     "about_me",
+     "address",
+     "street",
+     "district",
+     "city",
+     "killerQuestions"
+    ],
+    "showSkillsLevel": true,
+    "showModality": true,
+    "date": {
+     "show": false
+    },
+    "startSolidesEnabled": false
+   },
+   {
+    "killerQuestions": [],
+    "id": 892286,
+    "title": "ANALISTA DE CS - FOLHA DE PAGAMENTO PL",
+    "description": "<div>Quem Somos<br />A Sólides é a HR Tech líder no Brasil em Gestão Integrada de Pessoas com Inteligência Comportamental. Nossa plataforma é #completadeverdade: unimos tudo o que o RH e o DP precisam em um só lugar para transformar a realidade das PMEs. 🚀<br />📊 O nosso tamanho em números:<br />\n<ul>\n<li>R$ 530 milhões no maior aporte já feito em uma HR Tech na América Latina.</li>\n<li>+55 mil clientes e +8 milhões de pessoas impactadas.</li>\n<li>Aquisições das empresas Tangerino, RHGestor e Fo",
+    "currentState": "em_andamento",
+    "referenceId": 2817,
+    "companyName": "Sólides Tecnologia",
+    "companyLogo": "https://c5gwmsmjx1.execute-api.us-east-1.amazonaws.com/prod/empresa/logo/2817/Logo_Solides_Color_285x70.png",
+    "state": {
+     "id": 20,
+     "name": "São Paulo",
+     "code": "SP"
+    },
+    "city": {
+     "id": 3830,
+     "name": "São Paulo",
+     "state_id": 20
+    },
+    "address": {
+     "id": 107980818,
+     "zip_code": "01310-300",
+     "street_address": "Avenida Paulista",
+     "neighborhood": "Bela Vista",
+     "foreign_city": null,
+     "foreign_state": null,
+     "number": "2300",
+     "latitude": null,
+     "longitude": null,
+     "additional_information": null,
+     "city": {
+      "id": 3830,
+      "name": "São Paulo",
+      "state_id": 20
+     },
+     "state": {
+      "id": 20,
+      "name": "São Paulo",
+      "code": "SP"
+     },
+     "country": {
+      "id": 30,
+      "name": "Brasil",
+      "code": "BR"
+     }
+    },
+    "slug": "solides",
+    "redirectLink": "https://solides./vacancies/892286?origem=portal",
+    "type": "externa",
+    "isHiddenJob": false,
+    "homeOffice": false,
+    "jobType": "presencial",
+    "openPositions": 4,
+    "salary": {
+     "type": "simple",
+     "showRangeToApplicant": false,
+     "initialRange": null,
+     "finalRange": null,
+     "negotiable": false
+    },
+    "hasSpecialNeeds": false,
+    "peopleWithDisabilities": false,
+    "disabilityType": null,
+    "pcdOnly": false,
+    "videoUrl": null,
+    "seniority": [
+     {
+      "id": 5,
+      "name": "Pleno",
+      "level": null,
+      "show": true
+     }
+    ],
+    "recruitmentContractType": [
+     {
+      "id": 10,
+      "name": "CLT",
+      "level": null,
+      "show": true
+     }
+    ],
+    "benefits": [],
+    "language": [],
+    "hardSkills": [],
+    "education": [
+     {
+      "id": 45,
+      "name": "Graduação",
+      "level": null,
+      "show": true
+     }
+    ],
+    "createdAt": "2026-07-26",
+    "availablePositions": 1,
+    "affirmative": [],
+    "occupationAreas": [
+     {
+      "id": 349581,
+      "name": "Administrativo",
+      "level": null,
+      "show": true
+     },
+     {
+      "id": 349584,
+      "name": "Tecnologia",
+      "level": null,
+      "show": true
+     },
+     {
+      "id": 349594,
+      "name": "Recursos Humanos",
+      "level": null,
+      "show": true
+     }
+    ],
+    "isGoogleForJobsEnabled": true,
+    "requiredFields": [
+     "professionalExperiences",
+     "academicEducations",
+     "linkedin",
+     "salary",
+     "about_me",
+     "indentify",
+     "address",
+     "street",
+     "district",
+     "city"
+    ],
+    "showSkillsLevel": true,
+    "showModality": true,
+    "date": {
+     "show": false
+    },
+    "startSolidesEnabled": true
+   }
+  ]
+ }
+}

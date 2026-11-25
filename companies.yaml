@@ -58,3 +58,23 @@ companies:
 
   # --- Pinpoint ---
   - {name: Pinpoint, source: pinpoint, id: workwithus}
+
+  # --- Gupy (página de carreiras <id>.gupy.io) ---
+  - {name: Stefanini, source: gupy, id: stefanini}
+  - {name: Localiza, source: gupy, id: localiza}
+  - {name: Sicredi, source: gupy, id: sicredi}
+  - {name: Creditas, source: gupy, id: creditas}
+  - {name: FCamara, source: gupy, id: fcamara}
+  - {name: Compass UOL, source: gupy, id: compass}
+
+  # --- Sólides ---
+  - {name: Sólides, source: solides, id: solides}
+
+  # --- Inhire ---
+  - {name: Cora, source: inhire, id: cora}
+  - {name: Dock, source: inhire, id: dock}
+  - {name: Conta Simples, source: inhire, id: contasimples}
+  - {name: Flash, source: inhire, id: flash}
+
+  # --- Pandapé ---
+  - {name: InfoJobs, source: pandape, id: infojobs}
