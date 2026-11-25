@@ -3,6 +3,8 @@ package web
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"embed"
 	"errors"
 	"html/template"
@@ -48,7 +50,12 @@ type Server struct {
 
 // New cria o servidor.
 func New(s *store.Store, c Collector, log *slog.Logger) (*Server, error) {
-	tpl, err := template.New("").Funcs(funcs).ParseFS(templatesFS, "templates/*.html")
+	versions, err := assetVersions()
+	if err != nil {
+		return nil, err
+	}
+	fm := template.FuncMap{"asset": func(name string) string { return "/static/" + name + "?v=" + versions[name] }}
+	tpl, err := template.New("").Funcs(funcs).Funcs(fm).ParseFS(templatesFS, "templates/*.html")
 	if err != nil {
 		return nil, err
 	}
@@ -268,6 +275,25 @@ func cacheStatic(h http.Handler) http.Handler {
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		h.ServeHTTP(w, r)
 	})
+}
+
+// assetVersions calcula um hash curto de cada arquivo estático, usado na URL
+// para que o navegador nunca use CSS/JS antigo do cache.
+func assetVersions() (map[string]string, error) {
+	out := map[string]string{}
+	err := fs.WalkDir(staticFS, "static", func(path string, d fs.DirEntry, err error) error {
+		if err != nil || d.IsDir() {
+			return err
+		}
+		data, err := staticFS.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		sum := sha256.Sum256(data)
+		out[strings.TrimPrefix(path, "static/")] = hex.EncodeToString(sum[:4])
+		return nil
+	})
+	return out, err
 }
 
 func parseUnix(s string) time.Time {
