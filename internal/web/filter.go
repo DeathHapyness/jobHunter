@@ -72,8 +72,12 @@ func (f formFilter) toStore(now, lastVisit time.Time) store.Filter {
 		sf.PostedSince = now.Add(-d)
 	}
 	if f.OnlyNew {
-		// Sem visita anterior, tudo é novo.
+		// Mesma regra do selo "nova": publicada há no máximo newWindow e
+		// surgida depois da visita anterior (sem visita anterior, só a idade).
 		sf.SeenSince = lastVisit
+		if since := now.Add(-newWindow); sf.PostedSince.Before(since) {
+			sf.PostedSince = since
+		}
 	}
 	return sf
 }

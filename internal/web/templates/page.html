@@ -33,7 +33,7 @@
     <select name="publicada" aria-label="Data de publicação">
       {{range .PostedOpts}}<option value="{{.Value}}" {{if $.Filter.Has "publicada" .Value}}selected{{end}}>{{if .Value}}{{.Label}}{{else}}qualquer data{{end}}</option>{{end}}
     </select>
-    <label class="check"><input type="checkbox" name="novas" value="1" {{if .Filter.OnlyNew}}checked{{end}}> só novas</label>
+    <label class="check"><input type="checkbox" name="novas" value="1" {{if .Filter.OnlyNew}}checked{{end}}> só novas <span class="dim">(≤7 dias)</span></label>
   </div>
 
   <details class="more" {{if or .Filter.Companies .Filter.Sources .Filter.Countries .Filter.City .Filter.Statuses .Filter.ShowDisc (eq .Filter.Sort "empresa")}}open{{end}}>

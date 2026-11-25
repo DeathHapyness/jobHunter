@@ -154,3 +154,23 @@ func mustParse(t *testing.T, s string) url.Values {
 }
 
 func itoa(n int64) string { return strconv.FormatInt(n, 10) }
+
+func TestIsNewRespectsAge(t *testing.T) {
+	now := time.Now()
+	old := jobData{JobView: model.JobView{Job: model.Job{PostedAt: now.Add(-43 * 24 * time.Hour), FirstSeen: now}}}
+	if old.IsNew() {
+		t.Fatal("43-day-old job must not be new")
+	}
+	fresh := jobData{JobView: model.JobView{Job: model.Job{PostedAt: now.Add(-2 * 24 * time.Hour), FirstSeen: now}}}
+	if !fresh.IsNew() {
+		t.Fatal("2-day-old job should be new on first visit")
+	}
+	fresh.LastVisit = now.Add(time.Minute)
+	if fresh.IsNew() {
+		t.Fatal("job seen before last visit is not new")
+	}
+	f := parseFilter(mustParse(t, "novas=1")).toStore(now, time.Time{})
+	if f.PostedSince.IsZero() || now.Sub(f.PostedSince) > newWindow+time.Second {
+		t.Fatalf("novas filter must cap age: %v", f.PostedSince)
+	}
+}

@@ -15,8 +15,20 @@ type jobData struct {
 	LastVisit time.Time
 }
 
-// IsNew indica vaga vista pela primeira vez depois da visita anterior.
+// newWindow é a idade máxima para uma vaga ser considerada "nova".
+const newWindow = 7 * 24 * time.Hour
+
+// IsNew indica vaga publicada há no máximo newWindow (ou, sem data de
+// publicação, vista pela primeira vez nesse período) e que surgiu depois da
+// visita anterior.
 func (j jobData) IsNew() bool {
+	age := j.PostedAt
+	if age.IsZero() {
+		age = j.FirstSeen
+	}
+	if time.Since(age) > newWindow {
+		return false
+	}
 	return j.LastVisit.IsZero() || j.FirstSeen.After(j.LastVisit)
 }
 
