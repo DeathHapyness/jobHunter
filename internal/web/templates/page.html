@@ -13,8 +13,8 @@
 <header class="top">
   <h1><a href="/">VAGAS</a></h1>
   <span class="rule" aria-hidden="true"></span>
-  <button class="link" hx-post="/collect" hx-target="#collect-msg" hx-swap="innerHTML" {{if .Collecting}}disabled{{end}}>
-    [{{if .Collecting}}coletando…{{else}}coletar agora{{end}}]
+  <button class="btn btn-collect" hx-post="/collect" hx-target="#collect-msg" hx-swap="innerHTML" {{if .Collecting}}disabled{{end}}>
+    {{if .Collecting}}coletando…{{else}}▶ coletar agora{{end}}
   </button>
 </header>
 <p id="collect-msg" class="msg" role="status"></p>
@@ -37,7 +37,7 @@
   </div>
 
   <details class="more" {{if or .Filter.Companies .Filter.Sources .Filter.Countries .Filter.City .Filter.Statuses .Filter.ShowDisc (eq .Filter.Sort "empresa")}}open{{end}}>
-    <summary>[+ filtros]</summary>
+    <summary class="btn btn-filter">+ filtros</summary>
     <div class="more-grid">
       {{template "checks" dict "Name" "empresa" "Label" "empresa" "Values" .Facets.Companies "F" .Filter}}
       {{template "checks" dict "Name" "fonte" "Label" "fonte" "Values" .Facets.Sources "F" .Filter}}
@@ -117,20 +117,20 @@
     <span class="when" title="{{if .PostedAt.IsZero}}vista em {{date .FirstSeen}}{{else}}publicada em {{date .PostedAt}}{{end}}">{{if .PostedAt.IsZero}}{{short .FirstSeen}}{{else}}{{short .PostedAt}}{{end}}</span>
     <a class="title" href="{{.URL}}" target="_blank" rel="noopener noreferrer">{{.Title}}</a>
     {{if and .IsNew (eq .Status "nova")}}<span class="tag new">nova</span>{{end}}
-    {{if eq .Remote "sim"}}<span class="tag">remoto</span>{{else if eq .Remote "hibrido"}}<span class="tag">híbrido</span>{{end}}
-    {{if ne .Status "nova"}}<span class="tag st">{{label .Status}}</span>{{end}}
+    {{if eq .Remote "sim"}}<span class="tag remote">remoto</span>{{else if eq .Remote "hibrido"}}<span class="tag hybrid">híbrido</span>{{end}}
+    {{if ne .Status "nova"}}<span class="tag st st-tag-{{.Status}}">{{label .Status}}</span>{{end}}
   </div>
   <div class="l2">
     <span class="co">{{.Company}}</span>{{with .Location}} · {{excerpt . 60}}{{end}}{{if ne .Level "desconhecido"}} · {{lower (label .Level)}}{{end}}{{if ne .Area "outros"}} · {{lower (label .Area)}}{{end}}
     <span class="acts">
-      {{if ne .Status "salva"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"salva"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">salvar</button>{{end}}
-      {{if ne .Status "aplicada"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"aplicada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">apliquei</button>{{end}}
-      {{if ne .Status "descartada"}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"descartada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">descartar</button>
-      {{else}}<button class="link" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"vista"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">restaurar</button>{{end}}
-      <details class="note"><summary>nota</summary>
+      {{if ne .Status "salva"}}<button class="btn btn-save" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"salva"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">salvar</button>{{end}}
+      {{if ne .Status "aplicada"}}<button class="btn btn-apply" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"aplicada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">apliquei</button>{{end}}
+      {{if ne .Status "descartada"}}<button class="btn btn-discard" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"descartada"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">descartar</button>
+      {{else}}<button class="btn btn-restore" hx-post="/jobs/{{.ID}}/status" hx-vals='{"status":"vista"}' hx-target="#job-{{.ID}}" hx-swap="outerHTML">restaurar</button>{{end}}
+      <details class="note"><summary class="btn btn-note">nota</summary>
         <form hx-post="/jobs/{{.ID}}/notes" hx-target="#job-{{.ID}}" hx-swap="outerHTML">
           <textarea name="notes" rows="2" maxlength="5000" aria-label="Anotação">{{.Notes}}</textarea>
-          <button class="link" type="submit">[guardar]</button>
+          <button class="btn btn-save" type="submit">guardar</button>
         </form>
       </details>
     </span>

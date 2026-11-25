@@ -8,6 +8,11 @@
   --link: #1f3fbf;
   --hl: #b3261e;
   --sel: #e6dfcc;
+  --blue: #1f4fd1;
+  --green: #1d7a3a;
+  --red: #c0352b;
+  --amber: #b86e00;
+  --violet: #6b3fa0;
   font-family: ui-monospace, "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, "Liberation Mono", monospace;
   font-size: 14px;
   line-height: 1.5;
@@ -21,6 +26,11 @@
     --link: #ffb000;
     --hl: #ff6b4a;
     --sel: #1c1a15;
+    --blue: #6ea8ff;
+    --green: #5fd38a;
+    --red: #ff6b5e;
+    --amber: #ffb000;
+    --violet: #c49bff;
   }
 }
 * { box-sizing: border-box; }
@@ -113,3 +123,40 @@ fieldset .check { display: flex; margin: 0; }
   .when { min-width: 0; }
 }
 @media (hover: none) { .acts { opacity: 1; } }
+
+/* botões coloridos — colchetes retrô, invertem no hover */
+.btn {
+  --c: var(--link);
+  font: inherit; font-size: .92em; cursor: pointer; color: var(--c); background: transparent;
+  border: 1px solid var(--c); border-radius: 0; padding: 0 6px; line-height: 1.5; white-space: nowrap;
+  display: inline-block;
+}
+.btn::before { content: "["; opacity: .6; margin-right: 2px; }
+.btn::after { content: "]"; opacity: .6; margin-left: 2px; }
+.btn:hover, .btn:focus-visible { background: var(--c); color: var(--bg); text-decoration: none; }
+.btn:disabled { opacity: .5; cursor: progress; }
+.btn-save { --c: var(--blue); }
+.btn-apply { --c: var(--green); }
+.btn-discard { --c: var(--red); }
+.btn-restore { --c: var(--amber); }
+.btn-note { --c: var(--violet); }
+.btn-filter { --c: var(--fg); }
+.btn-collect { --c: var(--amber); background: var(--amber); color: var(--bg); font-weight: 700; }
+.btn-collect:hover { filter: brightness(1.1); }
+.more[open] .btn-filter { background: var(--fg); color: var(--bg); }
+.acts { opacity: 1; gap: 6px; }
+.job:hover .acts { opacity: 1; }
+
+/* selos coloridos */
+.tag.new { color: var(--bg); background: var(--red); padding: 0 4px; font-weight: 700; }
+.tag.new::before, .tag.new::after { content: ""; }
+.tag.remote { color: var(--green); }
+.tag.hybrid { color: var(--amber); }
+.st-tag-salva { color: var(--blue); }
+.st-tag-aplicada { color: var(--green); }
+.st-tag-descartada { color: var(--red); }
+.st-aplicada .title::before { color: var(--green); }
+.st-salva .title::before { color: var(--blue); }
+.prompt span { color: var(--amber); }
+.summary b { color: var(--amber); }
+legend { color: var(--blue); }
