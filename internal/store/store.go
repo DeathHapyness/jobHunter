@@ -170,7 +170,7 @@ func (s *Store) RecordRun(ctx context.Context, r Run) error {
 		return err
 	}
 	_, err = s.db.ExecContext(ctx, `DELETE FROM collection_runs WHERE finished_at < ?`,
-		time.Now().Add(-30*24*time.Hour).Unix())
+		r.FinishedAt.Add(-30*24*time.Hour).Unix())
 	return err
 }
 
