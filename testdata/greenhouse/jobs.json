@@ -1,0 +1,183 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/anthropic/jobs/5382750008",
+   "location": {
+    "name": "San Francisco, CA | New York City, NY"
+   },
+   "metadata": [
+    {
+     "id": 4036944008,
+     "name": "Location Type",
+     "value": "On-Site",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5382750008,
+   "updated_at": "2026-08-21T12:50:48-04:00",
+   "title": "AI Infrastructure Operations, Demand Planning",
+   "company_name": "Anthropic",
+   "first_published": "2026-08-11T08:14:01-04:00",
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;strong&gt;About Anthropic&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;About the Role&lt;/h2&gt;\n&lt;p&gt;Anthropic runs one of the largest and fastest-growing infrastructure fleets in the industry, across multiple accelerator families, CPU families, clouds, neoclouds, and on-prem sites. Capacity Engineering owns the data, tooling, and systems that let Anthropic plan, measure, and maximize utilization of that fleet: we partner on supply deals, wire telemetry from day zero, own the canonical capacity data layer, and build the planning and enforcement tools every research and product team relies on. This role sits in the Planning pillar, on the Demand Planning team, and works daily with research engineering, pretraining, inference, compute supply, finance, and external vendors.&lt;/p&gt;\n&lt;p&gt;You own the tranches. The job has two halves that feed each other. Upstream, you take the Demand Planning forecast and turn it into per-tranche requirements — shape, interconnect, region, supporting resources, date — and carry those into sourcing negotiations and data center build reviews so w",
+   "departments": [
+    {
+     "id": 4019632008,
+     "name": "Software Engineering - Infrastructure",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4001218008,
+     "name": "San Francisco, CA",
+     "location": "San Francisco, California, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ]
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/anthropic/jobs/5183044008",
+   "location": {
+    "name": "London, UK; Ontario, CAN; Remote-Friendly, United States; San Francisco, CA"
+   },
+   "metadata": [
+    {
+     "id": 4036944008,
+     "name": "Location Type",
+     "value": "On-Site",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5183044008,
+   "updated_at": "2026-11-11T20:39:10-05:00",
+   "title": "Anthropic Fellows Program, AI Safety & Security",
+   "company_name": "Anthropic",
+   "first_published": "2026-04-09T20:28:23-04:00",
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;strong&gt;About Anthropic&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.&lt;/p&gt;&lt;/div&gt;&lt;p&gt;Applications are now open for our January cohort - &lt;a href=&quot;https://bit.ly/afpsafety&quot;&gt;apply here by October 30.&lt;/a&gt;&lt;/p&gt;\n&lt;h1&gt;&lt;strong&gt;Anthropic Fellows Program overview&lt;/strong&gt;&lt;/h1&gt;\n&lt;p&gt;The Anthropic Fellows Program is designed to foster AI research and engineering talent. We provide funding and mentorship to promising technical talent - regardless of previous experience.&lt;/p&gt;\n&lt;p&gt;Fellows will primarily use external infrastructure (e.g. open-source models, public APIs) to work on an empirical project aligned with our research priorities, with the goal of producing a &lt;strong&gt;public output&lt;/strong&gt; (e.g. a paper submission). In one of our earlier cohorts, over 80% of fellows produced papers.&amp;nbsp;We run multiple cohorts of Fellows each year and review applications on a rolling basis.&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;What to expect&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;4 months of full-time research&amp;nbsp;&lt;/li&gt;\n&lt;li&",
+   "departments": [
+    {
+     "id": 4002061008,
+     "name": "AI Research & Engineering",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4011066008,
+     "name": "British Columbia, CA",
+     "location": "British Columbia, Canada",
+     "child_ids": [],
+     "parent_id": null
+    },
+    {
+     "id": 4001220008,
+     "name": "London, UK",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": null
+    },
+    {
+     "id": 4011067008,
+     "name": "Ontario, CA",
+     "location": "Ontario, Canada",
+     "child_ids": [],
+     "parent_id": null
+    },
+    {
+     "id": 4008537008,
+     "name": "Remote-Friendly US (Travel Required)",
+     "location": null,
+     "child_ids": [],
+     "parent_id": null
+    },
+    {
+     "id": 4001218008,
+     "name": "San Francisco, CA",
+     "location": "San Francisco, California, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ]
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/anthropic/jobs/5491501008",
+   "location": {
+    "name": "New York City, NY"
+   },
+   "metadata": [
+    {
+     "id": 4036944008,
+     "name": "Location Type",
+     "value": "On-Site",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5491501008,
+   "updated_at": "2026-11-25T14:04:37-05:00",
+   "title": "Area Lead, Data Center Security Operations (NORAM - North East)",
+   "company_name": "Anthropic",
+   "first_published": "2026-11-25T14:04:37-05:00",
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;strong&gt;About Anthropic&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;About the role&lt;/h2&gt;\n&lt;p&gt;As Anthropic&#39;s Data Center Security Operations Lead , you will own day-to-day physical security operations across our data center campuses in the area, including sites run with operating partners. You will be the person on the ground: the one who knows each site, its guard force, its local responders and what is actually happening on the floor.&lt;/p&gt;\n&lt;p&gt;This is a hands-on individual contributor role with no direct reports. You&#39;ll be on-site most weeks and get things done through people and companies you don&#39;t manage: site operators, guard vendors, construction and infrastructure partners, and your colleagues on the Data Center Security Engineering team. You will have the authority to make operational calls at your sites, and you&#39;ll work with the team&#39;s systems and delivery roles to take over each new site as it moves into operation.&lt;/p&gt;\n&lt;p&gt;The function is still in build mode. The work is ambiguous and changes as strategy changes. We need ",
+   "departments": [
+    {
+     "id": 4002063008,
+     "name": "Security",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4001219008,
+     "name": "New York City, NY",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ]
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/anthropic/jobs/5456619008",
+   "location": {
+    "name": "San Francisco, CA | Seattle, WA"
+   },
+   "metadata": [
+    {
+     "id": 4036944008,
+     "name": "Location Type",
+     "value": "On-Site",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 5456619008,
+   "updated_at": "2026-10-19T11:17:24-04:00",
+   "title": "3P Revenue Accounting & Reporting",
+   "company_name": "Anthropic",
+   "first_published": "2026-10-19T11:17:24-04:00",
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;strong&gt;About Anthropic&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;&lt;strong&gt;About the role&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;We are looking for a Senior Manager, 3P Revenue Accounting &amp;amp; Reporting to join our Accounting team. You will own revenue recognition, month-end close and reporting for Claude sold through our cloud service provider (CSP) channels: AWS Bedrock, Google Cloud Vertex AI and Microsoft Azure Marketplace. These channels are among the fastest-growing revenue streams at the company. They run on consumption-based, partner-reported data that changes every month.&lt;/p&gt;\n&lt;p&gt;You will be the accounting point of contact for the finance and partner teams at AWS, Google and Microsoft. Internally, you will partner with Finance, FAB, Engineering and business teams to turn partner billing feeds into accurate, auditable revenue. You will also lead the automation of a close that is still heavily manual. If you want to build the financial infrastructure behind a fast-growing AI company, come join us in our mission to build safe, beneficial AI.&lt;/p&gt;\n&lt;",
+   "departments": [
+    {
+     "id": 4002052008,
+     "name": "Finance",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4001218008,
+     "name": "San Francisco, CA",
+     "location": "San Francisco, California, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ]
+  }
+ ],
+ "meta": {
+  "total": 4
+ }
+}
