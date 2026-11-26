@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"html"
+	"io"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -338,17 +339,30 @@ func oracleRemote(code, label string) model.Remote {
 
 // ---------------------------------------------------------------- SAP SuccessFactors
 
-// SuccessFactors (Recruiting Marketing): lê o sitemap de vagas do site de
+// SuccessFactors (Recruiting Marketing): lê o feed de vagas do site de
 // carreiras (permitido no robots.txt; a busca costuma ser proibida).
-// params: base_url (site, ex.: https://jobs.sap.com), sitemap (caminho,
-// padrão /sitemal.xml — nome padrão do RMK). Frágil: o título vem da URL e
-// não há localização.
+// params: base_url (site, ex.: https://jobs.empresa.com), sitemap (caminho,
+// padrão /sitemal.xml). Aceita os dois formatos que o RMK publica:
+//   - RSS (/sitemal.xml): título, link, local e descrição;
+//   - sitemap <urlset>: só URL e data; o título vem do slug.
 type SuccessFactors struct{}
 
 func (*SuccessFactors) Source() string   { return "successfactors" }
 func (*SuccessFactors) Aggregator() bool { return false }
 
 var sfIDRe = regexp.MustCompile(`/(\d{6,})(?:/|$)`)
+
+type sfItem struct {
+	Title    string `xml:"title"`
+	Link     string `xml:"link"`
+	GUID     string `xml:"guid"`
+	Desc     string `xml:"description"`
+	PubDate  string `xml:"pubDate"`
+	Location string `xml:"http://base.google.com/ns/1.0 location"`
+	ID       string `xml:"http://base.google.com/ns/1.0 id"`
+	Loc      string `xml:"loc"`
+	LastMod  string `xml:"lastmod"`
+}
 
 func (s *SuccessFactors) Fetch(ctx context.Context, hc *httpx.Client, c config.Company, emit Emit) error {
 	base := strings.TrimRight(c.Param("base_url"), "/")
@@ -359,30 +373,86 @@ func (s *SuccessFactors) Fetch(ctx context.Context, hc *httpx.Client, c config.C
 	if path == "" {
 		path = "/sitemal.xml"
 	}
-	resp, err := hc.Do(ctx, httpx.Request{URL: base + path, Header: http.Header{"Accept": {"application/xml, text/xml"}}})
+	resp, err := hc.Do(ctx, httpx.Request{URL: base + path, Header: http.Header{"Accept": {"application/rss+xml, application/xml, text/xml"}}})
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
-	return streamXML(resp.Body, "url", func(dec *xml.Decoder, start xml.StartElement) error {
-		var u struct {
-			Loc     string `xml:"loc"`
-			LastMod string `xml:"lastmod"`
+	dec := xml.NewDecoder(resp.Body)
+	dec.Strict = false
+	dec.CharsetReader = func(_ string, in io.Reader) (io.Reader, error) { return in, nil }
+	found := false
+	for {
+		tok, err := dec.Token()
+		if err == io.EOF {
+			break
 		}
-		if err := dec.DecodeElement(&u, &start); err != nil {
+		if err != nil {
+			return fmt.Errorf("successfactors: xml: %w", err)
+		}
+		se, ok := tok.(xml.StartElement)
+		if !ok || (se.Name.Local != "item" && se.Name.Local != "url") {
+			continue
+		}
+		found = true
+		var it sfItem
+		if err := dec.DecodeElement(&it, &se); err != nil {
 			return fmt.Errorf("successfactors: %w", err)
 		}
-		loc := strings.TrimSpace(u.Loc)
+		job, ok := it.job()
+		if !ok {
+			continue
+		}
+		if err := emit(job); err != nil {
+			return err
+		}
+	}
+	if !found {
+		return errors.New("successfactors: feed sem vagas (formato inesperado)")
+	}
+	return nil
+}
+
+func (it sfItem) job() (model.Job, bool) {
+	if it.Loc != "" { // sitemap
+		loc := strings.TrimSpace(it.Loc)
 		m := sfIDRe.FindStringSubmatch(loc)
 		if m == nil {
-			return nil // páginas que não são de vaga
+			return model.Job{}, false
 		}
 		title := sfTitle(loc, m[1])
-		if title == "" {
-			return nil
+		return model.Job{SourceJobID: m[1], Title: title, URL: loc, PostedAt: parseTime(it.LastMod)}, title != ""
+	}
+	link := strings.TrimSpace(it.Link)
+	id := strings.TrimSpace(it.ID)
+	if id == "" {
+		id = strings.TrimSpace(it.GUID)
+	}
+	if id == "" {
+		if m := sfIDRe.FindStringSubmatch(link); m != nil {
+			id = m[1]
 		}
-		return emit(model.Job{SourceJobID: m[1], Title: title, URL: loc, PostedAt: parseTime(u.LastMod)})
-	})
+	}
+	title := strings.TrimSpace(it.Title)
+	loc := strings.TrimSpace(it.Location)
+	// O RMK anexa o local ao título: "Analista (São Paulo, SP, BR, 01000)".
+	if loc != "" {
+		title = strings.TrimSpace(strings.TrimSuffix(title, "("+loc+")"))
+	}
+	if id == "" || title == "" || link == "" {
+		return model.Job{}, false
+	}
+	return model.Job{
+		SourceJobID: id, Title: title, URL: link, Location: sfLocation(loc),
+		Description: textutil.HTMLToText(it.Desc), PostedAt: parseTime(it.PubDate),
+	}, true
+}
+
+var sfZipRe = regexp.MustCompile(`,\s*[A-Z0-9-]*\d[A-Z0-9 -]*$`)
+
+// sfLocation remove o CEP final ("Horst, Limburg, NL, 5961 PT" → "Horst, Limburg, NL").
+func sfLocation(s string) string {
+	return strings.TrimSpace(sfZipRe.ReplaceAllString(s, ""))
 }
 
 // sfTitle reconstrói o título a partir do slug vizinho ao id na URL.

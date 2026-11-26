@@ -104,3 +104,39 @@ companies:
   - {name: Apple, source: apple, id: apple}
   - {name: Microsoft, source: microsoft, id: microsoft, params: {search: "software engineer|devops|site reliability|cloud|security|data engineer|support engineer", max_pages: "15"}}
   # Google: bloqueado pelo robots.txt (ver docs/FONTES.md)
+
+  # --- Mais empresas de tech (validadas em 2026-11-25) ---
+  - {name: Stripe, source: greenhouse, id: stripe}
+  - {name: Airbnb, source: greenhouse, id: airbnb}
+  - {name: Dropbox, source: greenhouse, id: dropbox}
+  - {name: Discord, source: greenhouse, id: discord}
+  - {name: Figma, source: greenhouse, id: figma}
+  - {name: Reddit, source: greenhouse, id: reddit}
+  - {name: Robinhood, source: greenhouse, id: robinhood}
+  - {name: Coinbase, source: greenhouse, id: coinbase}
+  - {name: Okta, source: greenhouse, id: okta}
+  - {name: Databricks, source: greenhouse, id: databricks}
+  - {name: Roblox, source: greenhouse, id: roblox}
+  - {name: Lyft, source: greenhouse, id: lyft}
+  - {name: Instacart, source: greenhouse, id: instacart}
+  - {name: Asana, source: greenhouse, id: asana}
+  - {name: Samsara, source: greenhouse, id: samsara}
+  - {name: Duolingo, source: greenhouse, id: duolingo}
+  - {name: Brex, source: greenhouse, id: brex}
+  - {name: Toast, source: greenhouse, id: toast}
+  - {name: EBANX, source: greenhouse, id: ebanx}
+  - {name: CI&T, source: lever, id: ciandt}
+  - {name: Zoox, source: lever, id: zoox}
+  - {name: Replit, source: ashby, id: replit}
+  - {name: Sentry, source: ashby, id: sentry}
+  - {name: Cohere, source: ashby, id: cohere}
+  - {name: Perplexity, source: ashby, id: perplexity}
+  - {name: Globo, source: gupy, id: globo}
+  - {name: Adobe, source: workday, id: adobe, params: {host: wd5, site: external_experienced}}
+  - {name: HP, source: workday, id: hp, params: {host: wd5, site: ExternalCareerSite}}
+  - {name: Mastercard, source: workday, id: mastercard, params: {host: wd1, site: CorporateCareers}}
+  - {name: Thomson Reuters, source: workday, id: thomsonreuters, params: {host: wd5, site: External_Career_Site}}
+  - {name: Visa, source: workday, id: visa, params: {host: wd5, site: Visa}}
+  - {name: John Deere, source: successfactors, id: deere, params: {base_url: "https://jobs.deere.com"}}
+  - {name: GFT, source: successfactors, id: gft, params: {base_url: "https://jobs.gft.com"}}
+  # Bosch: usa SmartRecruiters (robots.txt proíbe) e jobs.bosch.com proíbe /en/ — ver docs/FONTES.md

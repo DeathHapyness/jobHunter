@@ -107,3 +107,7 @@ Estrutura:
 | `internal/store` | SQLite (WAL, FTS5, migrações) |
 | `internal/web` | servidor HTTP, templates e estáticos (HTMX local, CSP restrita) |
 | `internal/httpx` | cliente HTTP com robots.txt, retry e limite por host |
+
+## Licença
+
+[MIT](LICENSE).

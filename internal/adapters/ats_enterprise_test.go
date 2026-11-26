@@ -125,3 +125,14 @@ func TestTaleoDiscontinued(t *testing.T) {
 		t.Fatalf("taleo should point to oracle: %v", err)
 	}
 }
+
+func TestSuccessFactorsRSS(t *testing.T) {
+	srv := fixtureServer(t, map[string]string{"/sitemal.xml": "successfactors/rss.xml"})
+	c := config.Company{Name: "John Deere", Params: map[string]string{"base_url": srv.URL}}
+	jobs := collect(t, &SuccessFactors{}, c)
+	checkCommon(t, jobs, 3)
+	j := jobs[0]
+	if j.SourceJobID != "1401141500" || j.Title != "HR Stage" || j.Location != "Horst, Limburg, NL" || j.Description == "" {
+		t.Fatalf("fields: %+v", j)
+	}
+}
