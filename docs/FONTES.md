@@ -27,10 +27,10 @@ Legenda: **ok** funciona e tem teste · **frágil** funciona, mas depende de end
 | Oracle Recruiting Cloud | endpoint interno | frágil | `params.host` (ex.: `eeho.fa.us2.oraclecloud.com`), `params.site` (ex.: `CX_45001`) | API REST `recruitingCEJobRequisitions` usada pelo Candidate Experience. 25 por página. |
 | Taleo (clássico) | — | **descontinuada** | — | `*.taleo.net` não resolve mais; clientes migraram para o Oracle Recruiting Cloud (`source: oracle`). |
 | SAP SuccessFactors | endpoint interno | frágil | `params.base_url` (site de carreiras), `params.sitemap` (padrão `/sitemal.xml`) | A busca costuma ser bloqueada (403 / `q=` proibido no robots.txt); usa o sitemap de vagas. Título reconstruído da URL, sem localização. |
-| Amazon | site próprio | pendente | | Fase 5 |
-| Apple | site próprio | pendente | | Fase 5 |
-| Microsoft | site próprio | pendente | | Fase 5 |
-| Google | site próprio | pendente | | Fase 5 |
+| Amazon | site próprio | frágil | `params.search` (termos "\|"), `country` (ISO-3), `max_pages` (×100) | `amazon.jobs/en/search.json` (robots.txt só proíbe `/internal`). |
+| Apple | site próprio | frágil | `params.search` (termos "\|"; padrão: termos de infra/dev), `locale`, `max_pages` (×20) | Lê `__staticRouterHydrationData` da página de busca; sem filtro por área, por isso busca por termos. |
+| Microsoft | site próprio | frágil | `params.search`, `location`, `max_pages` (×10), `delay_ms` (padrão 2000) | `apply.careers.microsoft.com/api/pcsx/search` (permitido no robots.txt). Limita por IP (HTTP 429): o adaptador espaça páginas e, se for limitado no meio, guarda o que leu como coleta parcial. |
+| Google | site próprio | **bloqueada** | — | `google.com/robots.txt` proíbe `/about/careers/applications/jobs/results`. Não implementado. |
 | Adzuna | agregador (API) | pendente | | Fase 5 — requer `ADZUNA_APP_ID`/`ADZUNA_APP_KEY` |
 | Jooble | agregador (API) | pendente | | Fase 5 — requer `JOOBLE_API_KEY` |
 | The Muse | agregador (API) | pendente | | Fase 5 |

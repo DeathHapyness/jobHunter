@@ -158,6 +158,13 @@ func (s *Store) CountFirstSeenSince(ctx context.Context, t time.Time) (int, erro
 	return n, err
 }
 
+// CloseStale fecha as vagas abertas de (source, company) não vistas desde
+// before. Usada após coletas parciais (truncadas), em que não dá para saber
+// se uma vaga ausente sumiu ou só ficou além do limite de páginas.
+func (s *Store) CloseStale(ctx context.Context, source, company string, before, now time.Time) (int64, error) {
+	return s.CloseMissing(ctx, source, company, before, now)
+}
+
 // Run é o registro de uma coleta de uma empresa em uma fonte.
 type Run struct {
 	Source     string

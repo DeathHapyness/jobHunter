@@ -215,7 +215,7 @@ func (s *Solides) Fetch(ctx context.Context, hc *httpx.Client, c config.Company,
 			return nil
 		}
 	}
-	return fmt.Errorf("solides: limite de %d páginas atingido", maxPages)
+	return truncated("solides", maxPages)
 }
 
 // ---------------------------------------------------------------- Inhire

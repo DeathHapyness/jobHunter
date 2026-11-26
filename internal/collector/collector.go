@@ -21,6 +21,10 @@ import (
 
 const batchSize = 200
 
+// staleAfter é por quanto tempo uma vaga pode ficar sem aparecer numa fonte
+// de coleta parcial antes de ser fechada.
+const staleAfter = 14 * 24 * time.Hour
+
 // Lookup encontra o adaptador de uma fonte (permite injetar em testes).
 type Lookup func(source string) (adapters.Adapter, bool)
 
@@ -160,6 +164,16 @@ func (c *Collector) RunCompany(ctx context.Context, comp config.Company) (run st
 		err = flush()
 	} else if ferr := flush(); ferr != nil { // grava o que foi lido, mesmo com falha
 		log.Error("falha ao gravar lote parcial", "erro", ferr)
+	}
+	if errors.Is(err, adapters.ErrTruncated) {
+		// Parcial: as vagas lidas valem, mas ausência não prova que fechou.
+		closed, cerr := c.Store.CloseStale(cctx, comp.Source, comp.Name, run.StartedAt.Add(-staleAfter), c.now())
+		if cerr != nil {
+			run.Error = "fechar vagas antigas: " + cerr.Error()
+			return run
+		}
+		run.Closed, run.OK, run.Error = closed, true, "parcial: "+err.Error()
+		return run
 	}
 	if err != nil {
 		run.Error = err.Error()

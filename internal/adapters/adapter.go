@@ -6,6 +6,7 @@ package adapters
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"sort"
@@ -15,6 +16,17 @@ import (
 	"vagas/internal/httpx"
 	"vagas/internal/model"
 )
+
+// ErrTruncated indica que a listagem foi lida só até o limite configurado
+// (ex.: params.max_pages). As vagas lidas são válidas, mas a coleta não é
+// completa: o coletor não fecha vagas ausentes, só as que não aparecem há
+// muito tempo.
+var ErrTruncated = errors.New("listagem truncada no limite de páginas")
+
+// truncated cria um ErrTruncated com contexto.
+func truncated(source string, pages int) error {
+	return fmt.Errorf("%s: %w (%d páginas)", source, ErrTruncated, pages)
+}
 
 // Emit recebe cada vaga assim que ela é lida, para não acumular a lista
 // inteira (e as descrições) em memória.

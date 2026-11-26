@@ -3,6 +3,7 @@ package collector
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"log/slog"
 	"path/filepath"
@@ -168,4 +169,40 @@ func (mixedAdapter) Aggregator() bool { return false }
 func (mixedAdapter) Fetch(_ context.Context, _ *httpx.Client, _ config.Company, emit adapters.Emit) error {
 	emit(model.Job{SourceJobID: "1", Title: "DevOps Engineer", URL: "https://x/1"})
 	return emit(model.Job{SourceJobID: "2", Title: "Senior Accountant", URL: "https://x/2"})
+}
+
+type truncAdapter struct{ ids []string }
+
+func (truncAdapter) Source() string   { return "trunc" }
+func (truncAdapter) Aggregator() bool { return false }
+func (a truncAdapter) Fetch(_ context.Context, _ *httpx.Client, _ config.Company, emit adapters.Emit) error {
+	for _, id := range a.ids {
+		emit(model.Job{SourceJobID: id, Title: "SRE " + id, URL: "https://x/" + id})
+	}
+	return fmt.Errorf("x: %w", adapters.ErrTruncated)
+}
+
+func TestTruncatedIsOKButOnlyClosesStale(t *testing.T) {
+	ctx := context.Background()
+	c, s := setup(t, &fakeAdapter{})
+	ta := &truncAdapter{ids: []string{"1", "2"}}
+	c.Lookup = func(string) (adapters.Adapter, bool) { return ta, true }
+	comps := []config.Company{{Name: "Big", Source: "trunc"}}
+	if sum, _ := c.RunAll(ctx, comps); sum.Failed != 0 {
+		t.Fatalf("truncated run must count as ok: %+v", sum)
+	}
+	ta.ids = []string{"1"}
+	sum, _ := c.RunAll(ctx, comps)
+	if sum.Closed != 0 {
+		t.Fatalf("job 2 missing from a partial run must stay open: %+v", sum)
+	}
+	// 15 dias depois, ainda ausente: fecha.
+	base := c.Now()
+	c.Now = func() time.Time { return base.Add(15 * 24 * time.Hour) }
+	if sum, _ = c.RunAll(ctx, comps); sum.Closed != 1 {
+		t.Fatalf("stale job should close after 14 days: %+v", sum)
+	}
+	if _, total, _ := s.ListJobs(ctx, store.Filter{}); total != 1 {
+		t.Fatalf("open=%d", total)
+	}
 }

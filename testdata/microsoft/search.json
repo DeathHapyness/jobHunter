@@ -1,0 +1,59 @@
+{
+ "status": 200,
+ "data": {
+  "positions": [
+   {
+    "id": 1970393557050077,
+    "displayJobId": "200064397",
+    "name": "Senior Go-to-Market Manager",
+    "locations": [
+     "United States, Washington, Redmond",
+     "United States, California, Mountain View",
+     "United States, New York, New York",
+     "United States, Georgia, Atlanta"
+    ],
+    "standardizedLocations": [
+     "Redmond, WA, US",
+     "Mountain View, CA, US",
+     "New York, NY, US",
+     "Atlanta, GA, US"
+    ],
+    "postedTs": 1795652728,
+    "department": "Product Marketing",
+    "workLocationOption": "onsite",
+    "positionUrl": "/careers/job/1970393557050077"
+   },
+   {
+    "id": 1970393557097217,
+    "displayJobId": "200068907",
+    "name": "Research Intern - Machine Learning for Biology and Healthcare",
+    "locations": [
+     "United States, Washington, Redmond"
+    ],
+    "standardizedLocations": [
+     "Redmond, WA, US"
+    ],
+    "postedTs": 1795647729,
+    "department": "Research Sciences",
+    "workLocationOption": "onsite",
+    "positionUrl": "/careers/job/1970393557097217"
+   },
+   {
+    "id": 1970393557045772,
+    "displayJobId": "200063487",
+    "name": "Principal Software Engineering Manager",
+    "locations": [
+     "United States, Washington, Redmond"
+    ],
+    "standardizedLocations": [
+     "Redmond, WA, US"
+    ],
+    "postedTs": 1795646834,
+    "department": "Software Engineering",
+    "workLocationOption": "onsite",
+    "positionUrl": "/careers/job/1970393557045772"
+   }
+  ],
+  "count": 3
+ }
+}

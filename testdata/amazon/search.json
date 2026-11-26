@@ -1,0 +1,45 @@
+{
+ "error": null,
+ "hits": 3,
+ "jobs": [
+  {
+   "id_icims": "10615039",
+   "title": "Senior Account Executive, Amazon Ads",
+   "normalized_location": "Mexico City, Mexico City, MEX",
+   "city": "Mexico City",
+   "state": "DIF",
+   "country_code": "MEX",
+   "posted_date": "November 25, 2026",
+   "description_short": "As a Senior Account Executive at Amazon Ads Mexico, you will own the strategy and growth of a portfolio of the largest and most complex advertisers in Mexico. With a consultative approach and deep expertise",
+   "job_path": "/en/jobs/10615039/senior-account-executive-amazon-ads",
+   "job_category": "Sales, Advertising, & Account Management",
+   "is_intern": null
+  },
+  {
+   "id_icims": "10614931",
+   "title": "Business Analyst III - AMZ10564071",
+   "normalized_location": "Seattle, Washington, USA",
+   "city": "Seattle",
+   "state": "WA",
+   "country_code": "USA",
+   "posted_date": "November 25, 2026",
+   "description_short": "MULTIPLE POSITIONS AVAILABLEEmployer: \t\tAMAZON.COM SERVICES LLCOffered Position: \tBusiness Analyst IIIJob Location: \t\tSeattle, WashingtonJob Number: \t\tAMZ10564071Position Responsibilities:Leverage forecasting",
+   "job_path": "/en/jobs/10614931/business-analyst-iii-amz10564071",
+   "job_category": "Corporate Operations",
+   "is_intern": null
+  },
+  {
+   "id_icims": "10614443",
+   "title": "Transportation Area Manager",
+   "normalized_location": "Middletown, Delaware, USA",
+   "city": "Middletown",
+   "state": "DE",
+   "country_code": "USA",
+   "posted_date": "November 25, 2026",
+   "description_short": "At Amazon, we are working to be the most customer-centric company on earth. To get there, we need exceptionally talented, bright, and dependable people. Amazon is seeking Transportation Area Managers to",
+   "job_path": "/en/jobs/10614443/transportation-area-manager",
+   "job_category": "Supply Chain/Transportation Management",
+   "is_intern": null
+  }
+ ]
+}

@@ -269,7 +269,7 @@ func (s *SmartRecruiters) Fetch(ctx context.Context, hc *httpx.Client, c config.
 			return nil
 		}
 	}
-	return fmt.Errorf("smartrecruiters: limite de %d páginas atingido", maxPages)
+	return truncated("smartrecruiters", maxPages)
 }
 
 // ---------------------------------------------------------------- Recruitee

@@ -98,3 +98,9 @@ companies:
 
   # --- SAP SuccessFactors (sitemap de vagas) ---
   - {name: SAP, source: successfactors, id: sap, params: {base_url: "https://jobs.sap.com", sitemap: /en/jobs/sitemap.xml}}
+
+  # --- Big techs (sites próprios; params.search = termos separados por "|") ---
+  - {name: Amazon, source: amazon, id: amazon, params: {search: "software development engineer|devops|site reliability|systems engineer|cloud support|security engineer|data engineer|solutions architect", max_pages: "5"}}
+  - {name: Apple, source: apple, id: apple}
+  - {name: Microsoft, source: microsoft, id: microsoft, params: {search: "software engineer|devops|site reliability|cloud|security|data engineer|support engineer", max_pages: "15"}}
+  # Google: bloqueado pelo robots.txt (ver docs/FONTES.md)

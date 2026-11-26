@@ -101,9 +101,7 @@ func (w *Workday) Fetch(ctx context.Context, hc *httpx.Client, c config.Company,
 			return nil
 		}
 	}
-	// Workday limita a busca; atingir max_pages é esperado em empresas
-	// grandes. Não é erro, mas impede fechar vagas com segurança.
-	return fmt.Errorf("workday: limite de %d páginas atingido (use params.search para restringir)", maxPages)
+	return truncated("workday", maxPages)
 }
 
 var workdayDaysRe = regexp.MustCompile(`(\d+)\+?\s+Days?`)
@@ -198,7 +196,7 @@ func (i *ICIMS) Fetch(ctx context.Context, hc *httpx.Client, c config.Company, e
 			return nil // página repetida: fim da paginação
 		}
 	}
-	return fmt.Errorf("icims: limite de %d páginas atingido", maxPages)
+	return truncated("icims", maxPages)
 }
 
 // icimsLocation converte "US-AZ-Fort Huachuca" em "Fort Huachuca, AZ, US".
@@ -323,7 +321,7 @@ func (o *Oracle) Fetch(ctx context.Context, hc *httpx.Client, c config.Company, 
 			return nil
 		}
 	}
-	return fmt.Errorf("oracle: limite de %d páginas atingido", maxPages)
+	return truncated("oracle", maxPages)
 }
 
 func oracleRemote(code, label string) model.Remote {
