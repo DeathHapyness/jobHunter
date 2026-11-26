@@ -21,11 +21,12 @@ Legenda: **ok** funciona e tem teste · **frágil** funciona, mas depende de end
 | Inhire | ATS BR | frágil | `id`: tenant (`<id>.inhire.app`) | `api.inhire.app/job-posts/public/pages` com cabeçalho `X-Tenant`; usada pela página de carreiras. Sem data. |
 | Pandapé | ATS BR | frágil | `id`: subdomínio (`<id>.pandape.infojobs.com.br`) | Sem API: lê os cartões do HTML de `/Vacancy/Vacancies` (robots.txt permite). Quebra se a marcação mudar. Só a primeira página. |
 | Abler | ATS BR | **não suportada** | — | Não há endpoint público por empresa: o portal `candidatos.abler.com.br` só expõe um sitemap global (14 mil URLs, sem empresa). Buscar cada vaga para descobrir a empresa seria abusivo. O adaptador existe e devolve erro explicativo. |
-| Workday | endpoint interno | pendente | | Fase 4 |
-| iCIMS | endpoint interno | pendente | | Fase 4 |
-| Jobvite | endpoint interno | pendente | | Fase 4 |
-| Oracle Recruiting / Taleo | endpoint interno | pendente | | Fase 4 |
-| SAP SuccessFactors | endpoint interno | pendente | | Fase 4 |
+| Workday | endpoint interno | frágil | `id`: tenant; `params.host` (wd1…wd12), `params.site`; opcionais `search`, `max_pages` | `POST /wday/cxs/{tenant}/{site}/jobs` (API da página de vagas; não proibida no robots.txt). 20 por página; o `total` só vem na 1ª página. Data relativa ("Posted 3 Days Ago"). |
+| iCIMS | endpoint interno | frágil | `id` (`careers-<id>.icims.com`) ou `params.host`; `max_pages` | Lê os cartões do HTML de `/jobs/search?pr=N&in_iframe=1`. Muitos hosts antigos foram desligados ("gone"). |
+| Jobvite | endpoint interno | frágil | `id` (`jobs.jobvite.com/<id>`) | Lê a tabela HTML de `/<id>/jobs`. Empresas inexistentes redirecionam para a página de suporte → erro. |
+| Oracle Recruiting Cloud | endpoint interno | frágil | `params.host` (ex.: `eeho.fa.us2.oraclecloud.com`), `params.site` (ex.: `CX_45001`) | API REST `recruitingCEJobRequisitions` usada pelo Candidate Experience. 25 por página. |
+| Taleo (clássico) | — | **descontinuada** | — | `*.taleo.net` não resolve mais; clientes migraram para o Oracle Recruiting Cloud (`source: oracle`). |
+| SAP SuccessFactors | endpoint interno | frágil | `params.base_url` (site de carreiras), `params.sitemap` (padrão `/sitemal.xml`) | A busca costuma ser bloqueada (403 / `q=` proibido no robots.txt); usa o sitemap de vagas. Título reconstruído da URL, sem localização. |
 | Amazon | site próprio | pendente | | Fase 5 |
 | Apple | site próprio | pendente | | Fase 5 |
 | Microsoft | site próprio | pendente | | Fase 5 |
